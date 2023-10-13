@@ -396,3 +396,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/KooliProjekt/database.db
+/KooliProjekt/database.db-shm
+/KooliProjekt/database.db-wal
