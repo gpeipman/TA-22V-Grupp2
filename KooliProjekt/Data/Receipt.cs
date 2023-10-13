@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +9,6 @@ namespace KooliProjekt.Data
         public int Id { get; set; }
         
         public Event total_payment { get; set; }
-        public Customer user_id { get; set; }
+        public IdentityUser user_id { get; set; }
     }
 }
