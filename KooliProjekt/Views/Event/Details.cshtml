@@ -1,0 +1,42 @@
+@model KooliProjekt.Data.Event
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Event</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.event_name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.event_name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.event_date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.event_date)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.event_description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.event_description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.event_price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.event_price)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
