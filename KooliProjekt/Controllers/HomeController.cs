@@ -1,4 +1,4 @@
-﻿using KooliProjekt.Models;
+using KooliProjekt.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

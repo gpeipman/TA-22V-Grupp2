@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KooliProjekt.Data
 {
-    public class Receipt
+    public class Receipts
     {
-        public int Id { get; set; }
-        
-        public Event total_payment { get; set; }
-        public IdentityUser user_id { get; set; }
+        public int Id { get; set; }   
+        public int event_Id { get; set; }
+        public Event event_ { get; set; }
+
     }
 }

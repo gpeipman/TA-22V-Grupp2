@@ -8,9 +8,11 @@ namespace KooliProjekt.Data
     {
         public int Id { get; set; }
         public string event_name { get; set; }
-        public DateTime event_date { get; set; }
-        public string event_description { get; set; }
-        public IdentityUser organizers_id { get; set; }
-        public int event_price { get; set; }
+        public DateTime event_date_start { get; set; }
+        public DateTime event_date_end { get; set; }
+        public string event_description { get; set; } // Events program
+        public IdentityUser organizers_ { get; set; }
+        public int MaxParticipants { get; set; }
+        public int? event_price { get; set; }
     }
 }

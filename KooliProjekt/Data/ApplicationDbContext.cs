@@ -11,7 +11,7 @@ namespace KooliProjekt.Data
         }
         public DbSet<Event_details>Event_Details { get; set; }
         public DbSet<Event>Events { get; set; }
-        public DbSet<Receipt>Receipts { get; set; }
+        public DbSet<Receipts>Receipts { get; set; }
 
     }
 }

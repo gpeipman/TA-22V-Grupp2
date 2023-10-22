@@ -16,10 +16,16 @@
                 @Html.DisplayNameFor(model => model.event_name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.event_date)
+                @Html.DisplayNameFor(model => model.event_date_start)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.event_date_end)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.event_description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxParticipants)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.event_price)
@@ -34,10 +40,16 @@
                 @Html.DisplayFor(modelItem => item.event_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.event_date)
+                @Html.DisplayFor(modelItem => item.event_date_start)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.event_date_end)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.event_description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxParticipants)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.event_price)

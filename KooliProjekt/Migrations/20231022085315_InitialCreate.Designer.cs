@@ -3,19 +3,22 @@ using System;
 using KooliProjekt.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace KooliProjekt.Data.Migrations
+namespace KooliProjekt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231022085315_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.23");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
 
             modelBuilder.Entity("KooliProjekt.Data.Event", b =>
                 {
@@ -23,26 +26,30 @@ namespace KooliProjekt.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("event_date")
+                    b.Property<int>("MaxParticipants")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("event_date_end")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("event_date_start")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("event_description")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("event_name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("event_price")
+                    b.Property<int?>("event_price")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("organizers_idId")
+                    b.Property<string>("organizers_Id")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("organizers_idId");
+                    b.HasIndex("organizers_Id");
 
                     b.ToTable("Events");
                 });
@@ -56,33 +63,28 @@ namespace KooliProjekt.Data.Migrations
                     b.Property<bool>("is_payed")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("user_idId")
+                    b.Property<string>("user_Id")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("user_idId");
+                    b.HasIndex("user_Id");
 
                     b.ToTable("Event_Details");
                 });
 
-            modelBuilder.Entity("KooliProjekt.Data.Receipt", b =>
+            modelBuilder.Entity("KooliProjekt.Data.Receipts", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("total_paymentId")
+                    b.Property<int>("event_Id")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("user_idId")
-                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("total_paymentId");
-
-                    b.HasIndex("user_idId");
+                    b.HasIndex("event_Id");
 
                     b.ToTable("Receipts");
                 });
@@ -285,37 +287,31 @@ namespace KooliProjekt.Data.Migrations
 
             modelBuilder.Entity("KooliProjekt.Data.Event", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "organizers_id")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "organizers_")
                         .WithMany()
-                        .HasForeignKey("organizers_idId");
+                        .HasForeignKey("organizers_Id");
 
-                    b.Navigation("organizers_id");
+                    b.Navigation("organizers_");
                 });
 
             modelBuilder.Entity("KooliProjekt.Data.Event_details", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "user_id")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "user_")
                         .WithMany()
-                        .HasForeignKey("user_idId");
+                        .HasForeignKey("user_Id");
 
-                    b.Navigation("user_id");
+                    b.Navigation("user_");
                 });
 
-            modelBuilder.Entity("KooliProjekt.Data.Receipt", b =>
+            modelBuilder.Entity("KooliProjekt.Data.Receipts", b =>
                 {
-                    b.HasOne("KooliProjekt.Data.Event", "total_payment")
+                    b.HasOne("KooliProjekt.Data.Event", "event_")
                         .WithMany()
-                        .HasForeignKey("total_paymentId")
+                        .HasForeignKey("event_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "user_id")
-                        .WithMany()
-                        .HasForeignKey("user_idId");
-
-                    b.Navigation("total_payment");
-
-                    b.Navigation("user_id");
+                    b.Navigation("event_");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

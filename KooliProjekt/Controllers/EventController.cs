@@ -53,7 +53,7 @@ namespace KooliProjekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,event_name,event_date,event_description,event_price")] Event @event)
+        public async Task<IActionResult> Create([Bind("Id,event_name,event_date_start,event_date_end,event_description,MaxParticipants,event_price")] Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace KooliProjekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,event_name,event_date,event_description,event_price")] Event @event)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,event_name,event_date_start,event_date_end,event_description,MaxParticipants,event_price")] Event @event)
         {
             if (id != @event.Id)
             {
