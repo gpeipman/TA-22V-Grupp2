@@ -46,6 +46,18 @@ namespace KooliProjekt
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
+            
+#if(DEBUG)
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>(); 
+                dbContext.Database.EnsureCreated();
+
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+                SeedData.Generate(dbContext, userManager);
+            }
+#endif
 
             app.Run();
         }
