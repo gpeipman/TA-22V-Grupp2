@@ -1,4 +1,4 @@
-@model IEnumerable<KooliProjekt.Data.Event>
+@model PagedResult<Event>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,28 +13,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.event_name)
+                Event name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.event_date_start)
+                Date Start
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.event_date_end)
+                Date End
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.event_description)
+                Event Description
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaxParticipants)
+                Max participants
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.event_price)
+                Event price
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Results) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.event_name)
@@ -63,3 +63,4 @@
 }
     </tbody>
 </table>
+<vc:pager result="Model" view-name="Default" />

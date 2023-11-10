@@ -1,4 +1,4 @@
-@model IEnumerable<KooliProjekt.Data.Event_details>
+@model PagedResult<Event_details>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,13 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.is_payed)
+                Is payed?
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Results) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.is_payed)
@@ -33,3 +33,4 @@
 }
     </tbody>
 </table>
+<vc:pager result="Model" view-name="Default" />
