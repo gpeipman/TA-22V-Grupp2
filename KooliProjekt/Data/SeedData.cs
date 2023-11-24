@@ -13,10 +13,7 @@ namespace KooliProjekt.Data
             AddRole(roleManager);
         }
 
-        private static void AddEvent(RoleManager<IdentityRole> roleManager)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         private static void AddUsers(UserManager<IdentityUser> userManager)
         {
@@ -24,7 +21,6 @@ namespace KooliProjekt.Data
             user.UserName = "mina@example.com";
             user.EmailConfirmed = true;
             user.PasswordHash = userManager.PasswordHasher.HashPassword(user, "Polükas2013*");
-            user.Id = "Admin";
 
             userManager.CreateAsync(user).Wait();
         }
@@ -44,14 +40,28 @@ namespace KooliProjekt.Data
         }
         private static void AddRole(RoleManager<IdentityRole> roleManager)
         {
-            var newRole = new IdentityRole();
-            newRole.Id = "1";
-            newRole.Name = "Admin";
+            if (roleManager.Roles.Count() > 0)
+            {
+                return;
+            }
 
+            var newRole = new IdentityRole();
+            newRole.Name = "Admin";
+            newRole.Id = "1";
 
             roleManager.CreateAsync(newRole).Wait();
-
         }
+
+        private static void AddAdmin(IdentityUserRole<IdentityRole> settingRoles) // Короче где-то в этом методе ошибка
+        {
+
+            var newUserWithRole = new IdentityRole();
+            newUserWithRole.UserId = "5a2d63ae-774e-4175-aa63-e53b56bdb016";
+            newUserWithRole.RoleId = "1";
+
+            //settingRoles.CreateAsync(newUserWithRole).Wait();
+
+        } 
 
     }
 }

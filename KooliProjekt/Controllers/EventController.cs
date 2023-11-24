@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace KooliProjekt.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class EventController : Controller
     {
         private readonly ApplicationDbContext _context;
