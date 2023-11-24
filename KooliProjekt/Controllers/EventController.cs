@@ -6,22 +6,27 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using KooliProjekt.Data;
+using KooliProjekt.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace KooliProjekt.Controllers
 {
+    [Authorize]
     public class EventController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly EventService _eventService;
 
-        public EventController(ApplicationDbContext context)
+        public EventController(ApplicationDbContext context, EventService eventService)
         {
             _context = context;
+            _eventService = eventService;
         }
 
         // GET: Event
         public async Task<IActionResult> Index(int page = 1)
         {
-              return View(await _context.Events.GetPagedAsync(page, 2));
+            return View(await _eventService.List(page, 2));
         }
 
         // GET: Event/Details/5
@@ -147,14 +152,14 @@ namespace KooliProjekt.Controllers
             {
                 _context.Events.Remove(@event);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool EventExists(int id)
         {
-          return _context.Events.Any(e => e.Id == id);
+            return _context.Events.Any(e => e.Id == id);
         }
     }
 }

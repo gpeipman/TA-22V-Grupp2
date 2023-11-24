@@ -1,4 +1,5 @@
 using KooliProjekt.Data;
+using KooliProjekt.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,9 +17,19 @@ namespace KooliProjekt
                 options.UseSqlite(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+            /*builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ElevatedRights", policy =>
+                      policy.RequireRole("Administrator", "PowerUser", "BackupAdministrator"));
+            });*/
+
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<EventService>();
+
 
             var app = builder.Build();
 
@@ -46,16 +57,16 @@ namespace KooliProjekt
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
-            
-#if(DEBUG)
+
+#if (DEBUG)
             using (var scope = app.Services.CreateScope())
             {
-                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>(); 
+                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 dbContext.Database.EnsureCreated();
 
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-
-                SeedData.Generate(dbContext, userManager);
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                SeedData.Generate(dbContext, userManager, roleManager);
             }
 #endif
 
