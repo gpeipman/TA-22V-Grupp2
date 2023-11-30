@@ -46,6 +46,24 @@ namespace KooliProjekt.Controllers
 
             return View(@event);
         }
+        public IActionResult EventsAvailable(){
+            return View();
+        }
+        public IActionResult AllEvents()
+        {
+
+
+           string loggedInUsername = User.Identity.Name; // Get the logged-in username
+
+
+            // Retrieve the orders and the products for the logged-in user
+            List<Event> events = _context.Events.ToList();
+
+
+            // Map the orders and products to the ViewModel
+
+            return View(events);
+        }
 
         // GET: Event/Create
         public IActionResult Create()

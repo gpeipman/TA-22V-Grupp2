@@ -17,7 +17,14 @@ namespace KooliProjekt.Services
             var result = await _context.Events.GetPagedAsync(page, pageSize);
             return result;
         }
-
-
+        public async Task<List<Event>> AllEvents()
+        {
+            List<Event> Event = new List<Event>();
+            foreach(var item in _context.Events)
+            {
+                Event.Add(item);
+            }
+            return Event;
+        }
     }
 }
