@@ -1,0 +1,18 @@
+@model List<KooliProjekt.Data.Event>
+
+@{
+    ViewData["Title"] = "AllEvents";
+}
+
+<h1>All Events, which are currently available:</h1>
+
+@foreach (var Event in Model)
+{
+    <div>
+        <h3>Event Name: @Event.event_name</h3>
+        @if(Event.event_price > 0){
+            <h3>Event Price: @Event.event_price$</h3>
+        }
+        <hr>
+    </div>
+}
