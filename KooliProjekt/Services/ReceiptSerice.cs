@@ -4,26 +4,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KooliProjekt.Services
 {
-    public class EventService
+    public class ReceiptService
     {
         private readonly ApplicationDbContext _context;
 
-        public EventService(ApplicationDbContext context)
+        public ReceiptService(ApplicationDbContext context)
         {
             _context = context;
         }
-        public async Task<PagedResult<Event>> List(int page, int pageSize)
+        public async Task<PagedResult<Receipts>> List(int page, int pageSize)
         {
-            var result = await _context.Events.GetPagedAsync(page, pageSize);
+            var result = await _context.Receipts.GetPagedAsync(page, pageSize);
             return result;
         }
-        public async Task<Event> GetById(int id)
+        public async Task<Receipts> GetById(int id)
         {
-            var result = await _context.Events.FirstOrDefaultAsync(m => m.Id == id);
+            var result = await _context.Receipts.FirstOrDefaultAsync(m => m.Id == id);
 
             return result;
         }
-        public async Task Save(Event list)
+        public async Task Save(Receipts list)
         {
             if (list.Id == 0)
             {
@@ -38,10 +38,10 @@ namespace KooliProjekt.Services
         }
         public async Task Delete(int id)
         {
-            var todoList = await _context.Events.FindAsync(id);
-            if (todoList != null)
+            var receipt = await _context.Receipts.FindAsync(id);
+            if (receipt != null)
             {
-                _context.Events.Remove(todoList);
+                _context.Receipts.Remove(receipt);
             }
 
             await _context.SaveChangesAsync();

@@ -11,7 +11,9 @@ namespace KooliProjekt.Data
         public DateTime event_date_start { get; set; }
         public DateTime event_date_end { get; set; }
         public string event_description { get; set; } // Events program
-        public IdentityUser organizers_ { get; set; }
+        public string user_Id { get; set; }
+
+        public IdentityUser user_ { get; set; }
         public int MaxParticipants { get; set; }
         public int? event_price { get; set; }
     }

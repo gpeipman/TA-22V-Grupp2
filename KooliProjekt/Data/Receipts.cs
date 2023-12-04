@@ -6,7 +6,9 @@ namespace KooliProjekt.Data
 {
     public class Receipts
     {
-        public int Id { get; set; }   
+        public int Id { get; set; }
+        public string user_Id { get; set; }
+        public IdentityUser user_ { get; set; }
         public int event_Id { get; set; }
         public Event event_ { get; set; }
 
