@@ -36,33 +36,34 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Results) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.event_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.event_date_start)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.event_date_end)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.event_description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaxParticipants)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.event_price)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Results)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.event_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.event_date_start)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.event_date_end)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.event_description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxParticipants)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.event_price)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 <vc:pager result="Model" view-name="Default" />

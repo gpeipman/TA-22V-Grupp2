@@ -6,12 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using KooliProjekt.Data;
+using Microsoft.AspNetCore.Identity;
 using KooliProjekt.Services;
-using Microsoft.AspNetCore.Authorization;
 
 namespace KooliProjekt.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class EventController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -32,13 +31,13 @@ namespace KooliProjekt.Controllers
         // GET: Event/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Events == null)
+            if (id == null || _context.Event_Details == null)
             {
                 return NotFound();
             }
 
-            var @event = await _context.Events
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var @event = await _eventService.GetById(id.Value);
+
             if (@event == null)
             {
                 return NotFound();
@@ -46,28 +45,11 @@ namespace KooliProjekt.Controllers
 
             return View(@event);
         }
-        public IActionResult EventsAvailable(){
-            return View();
-        }
-        public IActionResult AllEvents()
-        {
-
-
-           string loggedInUsername = User.Identity.Name; // Get the logged-in username
-
-
-            // Retrieve the orders and the products for the logged-in user
-            List<Event> events = _context.Events.ToList();
-
-
-            // Map the orders and products to the ViewModel
-
-            return View(events);
-        }
 
         // GET: Event/Create
         public IActionResult Create()
         {
+            ViewData["user_Id"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id");
             return View();
         }
 
@@ -76,14 +58,16 @@ namespace KooliProjekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,event_name,event_date_start,event_date_end,event_description,MaxParticipants,event_price")] Event @event)
+        public async Task<IActionResult> Create([Bind("Id,event_name,event_date_start,event_date_end,event_description,user_Id,MaxParticipants,event_price")] Event @event)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Add(@event);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["user_Id"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id", @event.user_Id);
             return View(@event);
         }
 
@@ -95,11 +79,12 @@ namespace KooliProjekt.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Events.FindAsync(id);
+            var @event = await _eventService.GetById(id.Value);
             if (@event == null)
             {
                 return NotFound();
             }
+            ViewData["user_Id"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id", @event.user_Id);
             return View(@event);
         }
 
@@ -108,7 +93,7 @@ namespace KooliProjekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,event_name,event_date_start,event_date_end,event_description,MaxParticipants,event_price")] Event @event)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,event_name,event_date_start,event_date_end,event_description,user_Id,MaxParticipants,event_price")] Event @event)
         {
             if (id != @event.Id)
             {
@@ -135,6 +120,7 @@ namespace KooliProjekt.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["user_Id"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id", @event.user_Id);
             return View(@event);
         }
 
@@ -146,8 +132,7 @@ namespace KooliProjekt.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Events
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var @event = await _eventService.GetById(id.Value);
             if (@event == null)
             {
                 return NotFound();
@@ -161,17 +146,7 @@ namespace KooliProjekt.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Events == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Events'  is null.");
-            }
-            var @event = await _context.Events.FindAsync(id);
-            if (@event != null)
-            {
-                _context.Events.Remove(@event);
-            }
-
-            await _context.SaveChangesAsync();
+            await _eventService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
 

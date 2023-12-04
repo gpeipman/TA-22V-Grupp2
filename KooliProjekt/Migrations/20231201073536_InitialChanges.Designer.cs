@@ -3,6 +3,7 @@ using System;
 using KooliProjekt.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KooliProjekt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231201073536_InitialChanges")]
+    partial class InitialChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
@@ -41,12 +44,12 @@ namespace KooliProjekt.Migrations
                     b.Property<int?>("event_price")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("user_Id")
+                    b.Property<string>("organizers_Id")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("user_Id");
+                    b.HasIndex("organizers_Id");
 
                     b.ToTable("Events");
                 });
@@ -294,11 +297,11 @@ namespace KooliProjekt.Migrations
 
             modelBuilder.Entity("KooliProjekt.Data.Event", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "user_")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "organizers_")
                         .WithMany()
-                        .HasForeignKey("user_Id");
+                        .HasForeignKey("organizers_Id");
 
-                    b.Navigation("user_");
+                    b.Navigation("organizers_");
                 });
 
             modelBuilder.Entity("KooliProjekt.Data.Event_details", b =>

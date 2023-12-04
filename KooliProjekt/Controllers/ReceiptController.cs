@@ -6,23 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using KooliProjekt.Data;
+using KooliProjekt.Services;
 
 namespace KooliProjekt.Controllers
 {
     public class ReceiptController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ReceiptService _receiptService;
 
-        public ReceiptController(ApplicationDbContext context)
+        public ReceiptController(ApplicationDbContext context, ReceiptService receiptService)
         {
             _context = context;
+            _receiptService = receiptService;
+
         }
 
         // GET: Receipt
         public async Task<IActionResult> Index(int page = 1)
         {
-            var applicationDbContext = _context.Receipts.Include(r => r.event_);
-            return View(await _context.Receipts.GetPagedAsync(page, 2));
+            return View(await _receiptService.List(page, 2));
         }
 
         // GET: Receipt/Details/5
@@ -33,9 +36,8 @@ namespace KooliProjekt.Controllers
                 return NotFound();
             }
 
-            var receipts = await _context.Receipts
-                .Include(r => r.event_)
-                .FirstOrDefaultAsync(m => m.Id == id);
+
+            var receipts = await _receiptService.GetById(id.Value);
             if (receipts == null)
             {
                 return NotFound();
@@ -48,6 +50,7 @@ namespace KooliProjekt.Controllers
         public IActionResult Create()
         {
             ViewData["event_Id"] = new SelectList(_context.Events, "Id", "Id");
+            ViewData["user_Id"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -56,7 +59,7 @@ namespace KooliProjekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,event_Id")] Receipts receipts)
+        public async Task<IActionResult> Create([Bind("Id,user_Id,event_Id")] Receipts receipts)
         {
             if (ModelState.IsValid)
             {
@@ -65,6 +68,7 @@ namespace KooliProjekt.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["event_Id"] = new SelectList(_context.Events, "Id", "Id", receipts.event_Id);
+            ViewData["user_Id"] = new SelectList(_context.Users, "Id", "Id", receipts.user_Id);
             return View(receipts);
         }
 
@@ -76,12 +80,13 @@ namespace KooliProjekt.Controllers
                 return NotFound();
             }
 
-            var receipts = await _context.Receipts.FindAsync(id);
+            var receipts = await _receiptService.GetById(id.Value);
             if (receipts == null)
             {
                 return NotFound();
             }
             ViewData["event_Id"] = new SelectList(_context.Events, "Id", "Id", receipts.event_Id);
+            ViewData["user_Id"] = new SelectList(_context.Users, "Id", "Id", receipts.user_Id);
             return View(receipts);
         }
 
@@ -90,7 +95,7 @@ namespace KooliProjekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,event_Id")] Receipts receipts)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,user_Id,event_Id")] Receipts receipts)
         {
             if (id != receipts.Id)
             {
@@ -118,6 +123,7 @@ namespace KooliProjekt.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["event_Id"] = new SelectList(_context.Events, "Id", "Id", receipts.event_Id);
+            ViewData["user_Id"] = new SelectList(_context.Users, "Id", "Id", receipts.user_Id);
             return View(receipts);
         }
 
@@ -129,9 +135,7 @@ namespace KooliProjekt.Controllers
                 return NotFound();
             }
 
-            var receipts = await _context.Receipts
-                .Include(r => r.event_)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var receipts = await _receiptService.GetById(id.Value);
             if (receipts == null)
             {
                 return NotFound();
@@ -149,19 +153,19 @@ namespace KooliProjekt.Controllers
             {
                 return Problem("Entity set 'ApplicationDbContext.Receipts'  is null.");
             }
-            var receipts = await _context.Receipts.FindAsync(id);
+            var receipts = await _receiptService.GetById(id);
             if (receipts != null)
             {
                 _context.Receipts.Remove(receipts);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ReceiptsExists(int id)
         {
-          return _context.Receipts.Any(e => e.Id == id);
+            return _context.Receipts.Any(e => e.Id == id);
         }
     }
 }
