@@ -1,50 +1,60 @@
 using KooliProjekt.Data;
+using KooliProjekt.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace KooliProjekt.Services
 {
-    public class ReceiptService
+    public class ReceiptService : IReceiptService
     {
-        private readonly ApplicationDbContext _context;
-
-        public ReceiptService(ApplicationDbContext context)
+        private readonly IReceiptRepository _receiptRepository;
+        private readonly IUnitOfWork _unitOfWork;
+       public ReceiptService(IUnitOfWork unitOfWork) 
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
+
+            _receiptRepository = unitOfWork.ReceiptRepository;
         }
+
         public async Task<PagedResult<Receipts>> List(int page, int pageSize)
         {
-            var result = await _context.Receipts.GetPagedAsync(page, pageSize);
+            var result = await _receiptRepository.List(page, pageSize);
             return result;
         }
         public async Task<Receipts> GetById(int id)
         {
-            var result = await _context.Receipts.FirstOrDefaultAsync(m => m.Id == id);
-
+            var result = await _receiptRepository.GetById(id);
             return result;
         }
         public async Task Save(Receipts list)
         {
-            if (list.Id == 0)
-            {
-                _context.Add(list);
-            }
-            else
-            {
-                _context.Update(list);
-            }
+            await _unitOfWork.BeginTransaction();
 
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _receiptRepository.Save(list);
+
+                await _unitOfWork.Commit();
+            }
+            catch(Exception ex)
+            {
+                await _unitOfWork.Rollback();
+            }
         }
         public async Task Delete(int id)
         {
-            var receipt = await _context.Receipts.FindAsync(id);
-            if (receipt != null)
-            {
-                _context.Receipts.Remove(receipt);
-            }
+           await _unitOfWork.BeginTransaction();
 
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _receiptRepository.Delete(id);
+
+                await _unitOfWork.Commit();
+            }
+            catch (Exception ex)
+            {
+                await _unitOfWork.Rollback();
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KooliProjekt.Data
 {
-    public class Receipts
+    public class Receipts : Entity
     {
         public int Id { get; set; }
         public string user_Id { get; set; }

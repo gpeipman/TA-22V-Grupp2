@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KooliProjekt.Data
 {
-    public class Event
+    public class Event : Entity
     {
         public int Id { get; set; }
         public string event_name { get; set; }

@@ -12,14 +12,14 @@ namespace KooliProjekt.Controllers
 {
     public class ReceiptController : Controller
     {
+        private readonly IReceiptService _receiptService;
         private readonly ApplicationDbContext _context;
-        private readonly ReceiptService _receiptService;
 
-        public ReceiptController(ApplicationDbContext context, ReceiptService receiptService)
+
+        public ReceiptController(ApplicationDbContext context,IReceiptService receiptService)
         {
             _context = context;
             _receiptService = receiptService;
-
         }
 
         // GET: Receipt
@@ -63,8 +63,7 @@ namespace KooliProjekt.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(receipts);
-                await _context.SaveChangesAsync();
+                await _receiptService.Save(receipts);
                 return RedirectToAction(nameof(Index));
             }
             ViewData["event_Id"] = new SelectList(_context.Events, "Id", "Id", receipts.event_Id);
@@ -122,6 +121,7 @@ namespace KooliProjekt.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            await _receiptService.Save(receipts);
             ViewData["event_Id"] = new SelectList(_context.Events, "Id", "Id", receipts.event_Id);
             ViewData["user_Id"] = new SelectList(_context.Users, "Id", "Id", receipts.user_Id);
             return View(receipts);
@@ -149,17 +149,7 @@ namespace KooliProjekt.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Receipts == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Receipts'  is null.");
-            }
-            var receipts = await _receiptService.GetById(id);
-            if (receipts != null)
-            {
-                _context.Receipts.Remove(receipts);
-            }
-
-            await _context.SaveChangesAsync();
+            await _receiptService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
 
