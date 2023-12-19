@@ -3,6 +3,7 @@ using KooliProjekt.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using KooliProjekt.Data.Repositories;
 
 namespace KooliProjekt
 {
@@ -31,8 +32,13 @@ namespace KooliProjekt
             });*/
 
             builder.Services.AddControllersWithViews();
-            builder.Services.AddScoped<EventService>();
-
+            builder.Services.AddScoped<IEventRepository, EventRepository>();
+            builder.Services.AddScoped<IEventService, EventService>();
+            builder.Services.AddScoped<IReceiptRepository, ReceiptRepository>();
+            builder.Services.AddScoped<IReceiptService, ReceiptService>();
+            builder.Services.AddScoped<IEvent_DetailsRepository, Event_detailsRepository>();
+            builder.Services.AddScoped<IEvent_detailsService, Event_detailsService>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             var app = builder.Build();
 

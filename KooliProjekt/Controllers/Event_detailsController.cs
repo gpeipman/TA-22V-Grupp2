@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using KooliProjekt.Data;
+using Microsoft.AspNetCore.Identity;
 using KooliProjekt.Services;
 
 namespace KooliProjekt.Controllers
@@ -13,19 +14,19 @@ namespace KooliProjekt.Controllers
     public class Event_detailsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly Event_detailsService __Event_detailsService;
+        private readonly IEvent_detailsService _Event_detailsService;
 
-        public Event_detailsController(ApplicationDbContext context, Event_detailsService Event_detailsService)
+        public Event_detailsController(ApplicationDbContext context, IEvent_detailsService Event_detailsService)
         {
             _context = context;
-            __Event_detailsService = Event_detailsService;
+            _Event_detailsService = Event_detailsService;
 
         }
 
         // GET: Event_details
         public async Task<IActionResult> Index(int page = 1)
         {
-            return View(await __Event_detailsService.List(page, 2));
+            return View(await _Event_detailsService.List(page, 2));
 
         }
 
@@ -37,7 +38,7 @@ namespace KooliProjekt.Controllers
                 return NotFound();
             }
 
-            var event_details = await __Event_detailsService.GetById(id.Value);
+            var event_details = await _Event_detailsService.GetById(id.Value);
             if (event_details == null)
             {
                 return NotFound();
@@ -49,8 +50,8 @@ namespace KooliProjekt.Controllers
         // GET: Event_details/Create
         public IActionResult Create()
         {
-            ViewData["event_Id"] = new SelectList(_context.Events, "Id", "Id");
-            ViewData["user_Id"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["event_Id"] = new SelectList(_context.Events, "Id", "event_name");
+            ViewData["user_Id"] = new SelectList(_context.Users, "Id", "UserName");
             return View();
         }
 
@@ -63,12 +64,11 @@ namespace KooliProjekt.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(event_details);
-                await _context.SaveChangesAsync();
+                await _Event_detailsService.Save(event_details);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["event_Id"] = new SelectList(_context.Events, "Id", "Id", event_details.event_Id);
-            ViewData["user_Id"] = new SelectList(_context.Users, "Id", "Id", event_details.user_Id);
+            ViewData["event_Id"] = new SelectList(_context.Events, "Id", "event_name", event_details.event_Id);
+            ViewData["user_Id"] = new SelectList(_context.Users, "Id", "UserName", event_details.user_Id);
             return View(event_details);
         }
 
@@ -80,7 +80,7 @@ namespace KooliProjekt.Controllers
                 return NotFound();
             }
 
-            var event_details = await __Event_detailsService.GetById(id.Value);
+            var event_details = await _Event_detailsService.GetById(id.Value);
             if (event_details == null)
             {
                 return NotFound();
@@ -107,7 +107,7 @@ namespace KooliProjekt.Controllers
                 try
                 {
                     _context.Update(event_details);
-                    await _context.SaveChangesAsync();
+                    await _Event_detailsService.Save(event_details);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -135,7 +135,7 @@ namespace KooliProjekt.Controllers
                 return NotFound();
             }
 
-            var event_details = await __Event_detailsService.GetById(id.Value);
+            var event_details = await _Event_detailsService.GetById(id.Value);
             if (event_details == null)
             {
                 return NotFound();
@@ -149,7 +149,7 @@ namespace KooliProjekt.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await __Event_detailsService.Delete(id);
+            await _Event_detailsService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
 

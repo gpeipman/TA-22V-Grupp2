@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KooliProjekt.Data
 {
-    public class Event
+    public class Event : Entity
     {
         [Display(Name = "Event's ID")]
         public int Id { get; set; }

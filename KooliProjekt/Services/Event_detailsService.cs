@@ -1,51 +1,60 @@
 using KooliProjekt.Data;
 using Microsoft.EntityFrameworkCore;
-
+using KooliProjekt.Data.Repositories;
 
 
 namespace KooliProjekt.Services
 {
-    public class Event_detailsService
+    public class Event_detailsService : IEvent_detailsService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IEvent_DetailsRepository _event_DetailsRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public Event_detailsService(ApplicationDbContext context)
+        public Event_detailsService(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
+            _event_DetailsRepository = unitOfWork.Event_DetailsRepository;
         }
         public async Task<PagedResult<Event_details>> List(int page, int pageSize)
         {
-            var result = await _context.Event_Details.GetPagedAsync(page, pageSize);
+            var result = await _event_DetailsRepository.List(page, pageSize);
             return result;
         }
         public async Task<Event_details> GetById(int id)
         {
-            var result = await _context.Event_Details.FirstOrDefaultAsync(m => m.Id == id);
+            var result = await _event_DetailsRepository.GetById(id);
 
             return result;
         }
         public async Task Save(Event_details list)
         {
-            if (list.Id == 0)
-            {
-                _context.Add(list);
-            }
-            else
-            {
-                _context.Update(list);
-            }
+            await _unitOfWork.BeginTransaction();
 
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _event_DetailsRepository.Save(list);
+
+                await _unitOfWork.Commit();
+            }
+            catch(Exception ex)
+            {
+                await _unitOfWork.Rollback();
+            }
         }
         public async Task Delete(int id)
         {
-            var Event_details = await _context.Event_Details.FindAsync(id);
-            if (Event_details != null)
-            {
-                _context.Event_Details.Remove(Event_details);
-            }
+            await _unitOfWork.BeginTransaction();
 
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _event_DetailsRepository.Delete(id);
+
+                await _unitOfWork.Commit();
+            }
+            catch (Exception ex)
+            {
+                await _unitOfWork.Rollback();
+            }
         }
-    }
+        }
 }

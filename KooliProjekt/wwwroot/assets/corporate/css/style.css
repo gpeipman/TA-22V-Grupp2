@@ -167,7 +167,7 @@ Misc tools
 	margin-right: 10px !important;
 }
 
-/*.btn {
+.btn {
 	padding: 7px 14px;  
 	font-size: 14px;
 	text-transform: uppercase;
@@ -203,7 +203,7 @@ Misc tools
 	color: #fff;
 	background: #A8AEB3;
 	padding: 6px 13px; 
-}*/
+}
 
 div.checker,
 div.radio {

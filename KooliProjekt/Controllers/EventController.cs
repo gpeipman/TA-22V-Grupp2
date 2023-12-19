@@ -15,11 +15,11 @@ namespace KooliProjekt.Controllers
     [Authorize]
     public class EventController : Controller
     {
-        
+        private readonly IEventService _eventService;
         private readonly ApplicationDbContext _context;
-        private readonly EventService _eventService;
 
-        public EventController(ApplicationDbContext context, EventService eventService)
+
+        public EventController(ApplicationDbContext context,IEventService eventService)
         {
             _context = context;
             _eventService = eventService;
@@ -30,12 +30,16 @@ namespace KooliProjekt.Controllers
         {
             return View(await _eventService.List(page, 2));
         }
-
+        public IActionResult AllEvents()
+        {
+            List<Event> events = _context.Events.ToList();
+            return View(events);
+        }
         // GET: Event/Details/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Event_Details == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -69,8 +73,7 @@ namespace KooliProjekt.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Add(@event);
-                await _context.SaveChangesAsync();
+                await _eventService.Save(@event);
                 return RedirectToAction(nameof(Index));
             }
             ViewData["user_Id"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id", @event.user_Id);
@@ -128,6 +131,7 @@ namespace KooliProjekt.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            await _eventService.Save(@event);
             ViewData["user_Id"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id", @event.user_Id);
             return View(@event);
         }
