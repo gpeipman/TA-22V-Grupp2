@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using KooliProjekt.Data;
 using Microsoft.AspNetCore.Identity;
 using KooliProjekt.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace KooliProjekt.Controllers
 {
+    [Authorize]
     public class EventController : Controller
     {
         private readonly IEventService _eventService;
@@ -34,6 +36,7 @@ namespace KooliProjekt.Controllers
             return View(events);
         }
         // GET: Event/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -52,6 +55,7 @@ namespace KooliProjekt.Controllers
         }
 
         // GET: Event/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["user_Id"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id");
@@ -63,6 +67,7 @@ namespace KooliProjekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,event_name,event_date_start,event_date_end,event_description,user_Id,MaxParticipants,event_price")] Event @event)
         {
 
@@ -76,6 +81,7 @@ namespace KooliProjekt.Controllers
         }
 
         // GET: Event/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Events == null)
@@ -97,6 +103,7 @@ namespace KooliProjekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,event_name,event_date_start,event_date_end,event_description,user_Id,MaxParticipants,event_price")] Event @event)
         {
             if (id != @event.Id)
@@ -130,6 +137,7 @@ namespace KooliProjekt.Controllers
         }
 
         // GET: Event/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Events == null)
