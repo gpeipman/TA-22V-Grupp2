@@ -16,13 +16,16 @@ namespace KooliProjekt.Controllers
     public class EventController : Controller
     {
         private readonly IEventService _eventService;
+        private readonly IEvent_detailsService _event_DetailsService;
+        private readonly IReceiptService _receiptService;
         private readonly ApplicationDbContext _context;
 
-
-        public EventController(ApplicationDbContext context,IEventService eventService)
+        public EventController(ApplicationDbContext context,IEventService eventService, IEvent_detailsService event_DetailsService, IReceiptService receiptService)
         {
             _context = context;
             _eventService = eventService;
+            _event_DetailsService = event_DetailsService;
+            _receiptService = receiptService;
         }
 
         // GET: Event

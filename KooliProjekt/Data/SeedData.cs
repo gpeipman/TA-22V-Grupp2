@@ -39,10 +39,12 @@ namespace KooliProjekt.Data
             {
                 return;
             }
-            var user = new IdentityUser();
+            IdentityUser user = new IdentityUser();
             user.UserName = "mina@example.com";
             user.EmailConfirmed = true;
             user.PasswordHash = userManager.PasswordHasher.HashPassword(user, "Polükas2013*");
+            user.Email = user.UserName;
+            user.NormalizedEmail = user.Email.ToUpper();
             user.Id = "1";
  
             userManager.CreateAsync(user).Wait();
@@ -64,7 +66,7 @@ namespace KooliProjekt.Data
         }
         private static void AddAdmin(UserManager<IdentityUser> userManager) // Короче где-то в этом методе ошибка
         {
- 
+
             var user = userManager.FindByIdAsync("1").Result;
  
             userManager.AddToRoleAsync(user, "Admin").GetAwaiter().GetResult();
