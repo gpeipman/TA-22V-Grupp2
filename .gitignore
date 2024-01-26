@@ -399,3 +399,4 @@ FodyWeavers.xsd
 /KooliProjekt/database.db
 /KooliProjekt/database.db-shm
 /KooliProjekt/database.db-wal
+/KooliProjekt.UnitTests/BuildReports/Coverage
