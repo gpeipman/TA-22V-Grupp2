@@ -1,0 +1,33 @@
+@model KooliProjekt.Data.Event
+
+@{
+    ViewData["Title"] = "Receipt";
+
+}
+
+<div class="border-success">
+  <h1 class="bg-success">Thanks for the payment!</h1>  
+  <h1>Receipt</h1>
+
+  <div>
+    <h2>
+    Event Name:  @Model.event_name
+    </h2>
+    <h2>
+    Event Price:  @Model.event_price
+</h2>
+<h2>
+    Event Start: @Model.event_date_start
+</h2>
+<h2>
+    Event Duration:  @Model.event_date_end.Subtract(Model.event_date_start)
+</h2>
+<h2>
+    Event Price: @Model.event_price Euro
+</h2>
+ <a asp-controller="Receipt" asp-action="MyReceipts">My Receipts</a>
+  </div>
+<h2>
+</h2>
+
+</div>

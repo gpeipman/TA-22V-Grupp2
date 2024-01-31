@@ -1,0 +1,18 @@
+@model List<KooliProjekt.Data.Receipts>
+
+@{
+    ViewData["Title"] = "MyReceipts";
+}
+
+<h1>@User.Identity.Name, Your Receipts</a></h1>
+
+@{
+    foreach(var receipt in Model)
+    {
+        <div>
+            <h3>
+                <a asp-action="Receipt" asp-route-id="@receipt.Id">Receipt @receipt.Id</a>
+            </h3>
+        </div>
+    }
+}

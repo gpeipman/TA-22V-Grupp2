@@ -1,0 +1,59 @@
+@model List<KooliProjekt.Data.Event_details>
+
+@{
+    ViewData["Title"] = "AllEvents";
+}
+
+<h1>All Events, you registered for</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Event ID
+            </th>
+            <th>
+                Event name
+            </th>
+            <th>
+                Event price (EURO)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@{
+    var loggedInuser = User.Identity.Name;
+}
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.event_.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.event_.event_name)
+            </td>
+            <td>
+                @{
+                    if(item.event_.event_price > 0)
+                    {
+                        @Html.DisplayFor(modelItem => item.event_.event_price)
+                    }
+                    else
+                    {
+                        <p>Event is free of charge!</p>
+                    }
+                }
+            </td>
+            <td>
+                
+                @{
+                    if(!item.is_payed & item.event_.event_price > 0){
+                        <a asp-controller="Receipt" asp-action="Pay" asp-route-id="@item.Id" asp-route-user="@item.user_Id"><button class="btn">Pay</button></a>
+                        <a asp-action="Delete" asp-route-id="@item.Id"><button class="btn">Cancel registration</button></a>
+                    }
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
