@@ -20,10 +20,22 @@ namespace KooliProjekt.Data.Repositories
             return result;
         }
 
+        public virtual async Task<List<Event_details>> GetEvent_details(string loggedInUsername)
+        {
+            var result = await Context.Event_Details
+                .Where(o => o.user_.Email == loggedInUsername)
+                .Include(o => o.user_)
+                .Include(o => o.event_)
+                .ToListAsync();
+
+            return result;
+        }
+
+
         public virtual async Task<Event_details> GetById(int id)
         {
             var result = await Context.Event_Details.FindAsync(id);
-        
+
             return result;
         }
 

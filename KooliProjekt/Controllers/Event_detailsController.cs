@@ -32,20 +32,20 @@ namespace KooliProjekt.Controllers
 
         public async Task<IActionResult> Register(int? id)
         {
-                Event_details newRegistratedUser = new Event_details();
-                newRegistratedUser.user_ = _context.Users.FirstOrDefault(o => o.Email == User.Identity.Name);
-                newRegistratedUser.user_Id = newRegistratedUser.user_.Id;
-                newRegistratedUser.event_Id = id.Value;
-                newRegistratedUser.is_payed = false;
-                await _Event_detailsService.Save(newRegistratedUser);
-                return RedirectToAction(nameof(MyEvent_details));
+            Event_details newRegistratedUser = new Event_details();
+            newRegistratedUser.user_ = _context.Users.FirstOrDefault(o => o.Email == User.Identity.Name);
+            newRegistratedUser.user_Id = newRegistratedUser.user_.Id;
+            newRegistratedUser.event_Id = id.Value;
+            newRegistratedUser.is_payed = false;
+            await _Event_detailsService.Save(newRegistratedUser);
+            return RedirectToAction(nameof(MyEvent_details));
         }
 
         public async Task<IActionResult> Pay(int? id)
         {
             var @event = await _Event_detailsService.GetById(id.Value);
             @event.is_payed = true;
-            
+
             return RedirectToAction(nameof(MyEvent_details));
         }
 
@@ -56,19 +56,15 @@ namespace KooliProjekt.Controllers
             return View(await _Event_detailsService.List(page, 10));
         }
 
-        public IActionResult MyEvent_details()
+        public async Task<IActionResult> MyEvent_details()
         {
 
 
-           string loggedInUsername = User.Identity.Name; // Get the logged-in username
+            string loggedInUsername = User.Identity.Name; // Get the logged-in username
 
 
-            List<Event_details> event_Details = _context.Event_Details
-                .Where(o => o.user_.Email == loggedInUsername)
-                .Include(o => o.user_)
-                .Include(o => o.event_)
-                .ToList();
-            
+            List<Event_details> event_Details = await _Event_detailsService.GetEvent_details(loggedInUsername);
+
             return View(event_Details);
         }
 

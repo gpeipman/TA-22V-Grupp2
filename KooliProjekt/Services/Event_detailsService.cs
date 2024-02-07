@@ -26,6 +26,10 @@ namespace KooliProjekt.Services
 
             return result;
         }
+        public virtual async Task<List<Event_details>> GetEvent_details(string loggedInUsername)
+        {
+            return await _event_DetailsRepository.GetEvent_details(loggedInUsername);
+        }
         public async Task Save(Event_details list)
         {
             await _unitOfWork.BeginTransaction();
@@ -36,7 +40,7 @@ namespace KooliProjekt.Services
 
                 await _unitOfWork.Commit();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await _unitOfWork.Rollback();
             }
@@ -56,5 +60,5 @@ namespace KooliProjekt.Services
                 await _unitOfWork.Rollback();
             }
         }
-        }
+    }
 }
