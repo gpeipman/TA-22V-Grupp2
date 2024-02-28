@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace KooliProjekt.Data.Repositories
 {
     public class EventRepository : BaseRepository<Event>, IEventRepository
@@ -21,6 +23,18 @@ namespace KooliProjekt.Data.Repositories
             return result;
         }
 
+
+        public virtual async Task<List<Event>> GetAll()
+        {
+            List<Event> allevents = new List<Event>();
+            foreach (Event element in Context.Events)
+            {
+                allevents.Add(element);
+            }
+
+            return allevents;
+        }
+
         public virtual async Task Save(Event list)
         {
             if (list.Id == 0)
@@ -40,6 +54,18 @@ namespace KooliProjekt.Data.Repositories
             {
                 Context.Set<Event>().Remove(entity);
             }
+        }
+
+        public virtual async Task Entry(Event @event)
+        {
+            Context.Entry(@event).State = EntityState.Modified;
+            await Context.SaveChangesAsync();
+
+
+        }
+        public virtual bool EventExists(int id)
+        {
+            return Context.Events.Any(e => e.Id == id);
         }
     }
 }

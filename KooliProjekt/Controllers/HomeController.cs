@@ -1,6 +1,9 @@
 using KooliProjekt.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using KooliProjekt.Services;
+using KooliProjekt.Data;
+using NuGet.Protocol;
 
 namespace KooliProjekt.Controllers
 {
@@ -17,6 +20,13 @@ namespace KooliProjekt.Controllers
         {
             return View();
         }
+
+        /*public async Task<IActionResult> Weather()
+        {
+            WeatherService service = new WeatherService();
+            WeatherForecast forecast = await service.GetData();
+            return View(forecast);
+        }*/
 
         public IActionResult Privacy()
         {

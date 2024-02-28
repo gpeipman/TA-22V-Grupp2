@@ -55,14 +55,11 @@ namespace KooliProjekt.Controllers
             return View(receipts);
         }
 
-        public async Task<IActionResult> Pay(int? id, string? user)
+        /*public async Task<IActionResult> Pay(int? id, string? user)
         {
             string loggedInUsername = User.Identity.Name; // Get the logged-in username
 
-            var @event = await _event_DetailsService.GetById(id.Value);
-            @event.is_payed = true;
-            await _event_DetailsService.Save(@event);
-            
+            await _receiptService.Pay(id);
 
             Receipts receipt = new Receipts();
 
@@ -73,7 +70,7 @@ namespace KooliProjekt.Controllers
 
             return RedirectToAction(nameof(MyReceipts));
 
-        }
+        }*/
 
         public IActionResult MyReceipts()
         {
@@ -85,7 +82,7 @@ namespace KooliProjekt.Controllers
                 .Include(o => o.event_)
                 .Include(o => o.user_)
                 .ToList();
-            
+
             return View(receipts);
         }
 

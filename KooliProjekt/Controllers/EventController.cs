@@ -20,7 +20,7 @@ namespace KooliProjekt.Controllers
         private readonly IReceiptService _receiptService;
         private readonly ApplicationDbContext _context;
 
-        public EventController(ApplicationDbContext context,IEventService eventService, IEvent_detailsService event_DetailsService, IReceiptService receiptService)
+        public EventController(ApplicationDbContext context, IEventService eventService, IEvent_detailsService event_DetailsService, IReceiptService receiptService)
         {
             _context = context;
             _eventService = eventService;
@@ -33,11 +33,9 @@ namespace KooliProjekt.Controllers
         {
             return View(await _eventService.List(page, 2));
         }
-        public IActionResult AllEvents()
-        {
-            List<Event> events = _context.Events.ToList();
-            return View(events);
-        }
+
+
+
         // GET: Event/Details/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)

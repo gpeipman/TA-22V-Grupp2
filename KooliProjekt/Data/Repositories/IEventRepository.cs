@@ -6,5 +6,7 @@ namespace KooliProjekt.Data.Repositories
         Task<Event> GetById(int id);
         Task Save(Event list);
         Task Delete(int id);
+        Task Entry(Event @event);
+        bool EventExists(int id);
     }
 }

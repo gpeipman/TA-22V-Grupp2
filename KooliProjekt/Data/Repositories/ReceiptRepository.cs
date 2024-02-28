@@ -1,3 +1,4 @@
+using KooliProjekt.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace KooliProjekt.Data.Repositories
@@ -24,6 +25,7 @@ namespace KooliProjekt.Data.Repositories
 
             return result;
         }
+
 
         public virtual async Task Save(Receipts entity)
         {

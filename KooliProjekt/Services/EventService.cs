@@ -9,7 +9,7 @@ namespace KooliProjekt.Services
         private readonly IEventRepository _EventRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public EventService(IUnitOfWork unitOfWork) 
+        public EventService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
 
@@ -40,7 +40,7 @@ namespace KooliProjekt.Services
 
                 await _unitOfWork.Commit();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await _unitOfWork.Rollback();
             }
@@ -61,5 +61,18 @@ namespace KooliProjekt.Services
                 await _unitOfWork.Rollback();
             }
         }
+        public async Task Entry(Event @event)
+        {
+            await _EventRepository.Entry(@event);
+            
+        }
+
+
+        public bool EventExists(int id)
+        {
+            return _EventRepository.EventExists(id);
+        }
+
+
     }
 }

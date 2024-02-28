@@ -8,8 +8,10 @@ namespace KooliProjekt.Services
     public class ReceiptService : IReceiptService
     {
         private readonly IReceiptRepository _receiptRepository;
+        private readonly IEventRepository _eventRepository;
         private readonly IUnitOfWork _unitOfWork;
-       public ReceiptService(IUnitOfWork unitOfWork) 
+        private readonly IEvent_DetailsRepository _event_DetailsRepository;
+        public ReceiptService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
 
@@ -26,6 +28,21 @@ namespace KooliProjekt.Services
             var result = await _receiptRepository.GetById(id);
             return result;
         }
+
+        public async Task Pay1(int? id)
+        {
+            var @event = await _event_DetailsRepository.GetById(id.Value);
+            @event.is_payed = true;
+            await _event_DetailsRepository.Save(@event);
+        }
+
+        public async Task Pay2(int? id)
+        {
+            var @event = await _event_DetailsRepository.GetById(id.Value);
+            @event.is_payed = true;
+            await _event_DetailsRepository.Save(@event);
+        }
+
         public async Task Save(Receipts list)
         {
             await _unitOfWork.BeginTransaction();
@@ -36,14 +53,14 @@ namespace KooliProjekt.Services
 
                 await _unitOfWork.Commit();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await _unitOfWork.Rollback();
             }
         }
         public async Task Delete(int id)
         {
-           await _unitOfWork.BeginTransaction();
+            await _unitOfWork.BeginTransaction();
 
             try
             {
@@ -55,6 +72,11 @@ namespace KooliProjekt.Services
             {
                 await _unitOfWork.Rollback();
             }
+        }
+
+        public int Pay(int? id)
+        {
+            return id.Value;
         }
     }
 }

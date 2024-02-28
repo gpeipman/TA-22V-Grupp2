@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KooliProjekt.Data;
+using KooliProjekt.Services;
 
 namespace KooliProjekt.Controllers
 {
@@ -13,25 +14,29 @@ namespace KooliProjekt.Controllers
     [ApiController]
     public class EventAPIController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IEventService _eventService;
+        private readonly IEvent_detailsService _event_DetailsService;
+        private readonly IReceiptService _receiptService;
 
-        public EventAPIController(ApplicationDbContext context)
+        public EventAPIController(IEventService eventService, IEvent_detailsService event_DetailsService, IReceiptService receiptService)
         {
-            _context = context;
+            _eventService = eventService;
+            _event_DetailsService = event_DetailsService;
+            _receiptService = receiptService;
         }
 
         // GET: api/EventAPI
-        [HttpGet]
+        /*[HttpGet]
         public async Task<ActionResult<IEnumerable<Event>>> GetEvents()
         {
-            return await _context.Events.ToListAsync();
-        }
+            return await _eventService.;
+        }*/
 
         // GET: api/EventAPI/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Event>> GetEvent(int id)
         {
-            var @event = await _context.Events.FindAsync(id);
+            var @event = await _eventService.GetById(id);
 
             if (@event == null)
             {
@@ -51,15 +56,13 @@ namespace KooliProjekt.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(@event).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _eventService.Entry(@event);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EventExists(id))
+                if (!_eventService.EventExists(id))
                 {
                     return NotFound();
                 }
@@ -75,33 +78,19 @@ namespace KooliProjekt.Controllers
         // POST: api/EventAPI
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Event>> PostEvent(Event @event)
+        public async Task<IActionResult> PostEvent(Event @event)
         {
-            _context.Events.Add(@event);
-            await _context.SaveChangesAsync();
+            await _eventService.Save(@event);
 
             return CreatedAtAction("GetEvent", new { id = @event.Id }, @event);
         }
-
         // DELETE: api/EventAPI/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEvent(int id)
         {
-            var @event = await _context.Events.FindAsync(id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
-
-            _context.Events.Remove(@event);
-            await _context.SaveChangesAsync();
+            await _eventService.Delete(id);
 
             return NoContent();
-        }
-
-        private bool EventExists(int id)
-        {
-            return _context.Events.Any(e => e.Id == id);
         }
     }
 }
