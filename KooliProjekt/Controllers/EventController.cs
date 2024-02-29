@@ -121,7 +121,7 @@ namespace KooliProjekt.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventExists(@event.Id))
+                    if (!_eventService.EventExists(@event.Id))
                     {
                         return NotFound();
                     }
@@ -141,7 +141,7 @@ namespace KooliProjekt.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Events == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -162,11 +162,6 @@ namespace KooliProjekt.Controllers
         {
             await _eventService.Delete(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool EventExists(int id)
-        {
-            return _context.Events.Any(e => e.Id == id);
         }
     }
 }

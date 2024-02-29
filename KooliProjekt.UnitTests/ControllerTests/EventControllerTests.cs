@@ -100,35 +100,82 @@ namespace KooliProjekt.UnitTests.ControllerTests
             Assert.Equal(item, result.Model);
         }
 
-        [Fact]
-        public async Task Create_should_return_view()
-        {
-            // Arrange
-
-            // Act
-            SelectList ViewData = new SelectList(_context.Set<IdentityUser>(), "Id", "Id");
-            var result = _controller.Create() as ViewResult;
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.Equal("Create", result.ViewName);
-        }
-
         // [Fact]
-        // public async Task DeleteConfirmed_should_redirect_to_index()
+        // public async Task Create_should_return_view()
         // {
         //     // Arrange
-        //     int id = 4;
-        //     _Event_detailsService.Setup(srv => srv.Delete(id))
-        //                         .Verifiable();
 
         //     // Act
-        //     var result = await _controller.DeleteConfirmed(id) as RedirectToActionResult;
+        //     SelectList ViewData = new SelectList(_context.Set<IdentityUser>(), "Id", "Id");
+        //     var result = _controller.Create() as ViewResult;
 
         //     // Assert
         //     Assert.NotNull(result);
-        //     Assert.Equal("Index", result.ActionName);
-        //     _Event_detailsService.VerifyAll();
+        //     Assert.Equal("Create", result.ViewName);
         // }
+
+        [Fact]
+        public async Task DeleteConfirmed_should_return_not_found_if_id_is_null()
+        {
+            // Arrange
+            int? id = null;
+            Event @event = null;
+            // _eventService.Setup(srv => srv.GetById(id.Value))
+            //                    .Returns(null);
+
+            // Act
+            var result = await _controller.Delete(id) as NotFoundResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<NotFoundResult>(result);
+        }
+        [Fact]
+        public async Task Delete_should_return_not_found_if_id_is_not_null_but_event_doest_not_exist()
+        {
+            // Arrange
+            int? id = 1;
+            _eventService.Setup(srv => srv.GetById(id.Value))
+                                .Equals(null);
+
+            // Act
+            var result = await _controller.Delete(id) as NotFoundResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<NotFoundResult>(result);
+        }
+        [Fact]
+        public async Task Delete_should_return_view_if_id_is_not_null_and_event_exists()
+        {
+            // Arrange
+            int? id = 1;
+            Event @event = new Event { Id = id.Value };
+            _eventService.Setup(srv => srv.GetById(id.Value))
+                                .ReturnsAsync(@event);
+
+            // Act
+            var result = await _controller.Delete(id) as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<ViewResult>(result);
+        }
+        [Fact]
+        public async Task DeleteConfirmed_should_redirect_to_action_index()
+        {
+            // Arrange
+            int id = 1;
+            Event @event = new Event { Id = id };
+            _eventService.Setup(srv => srv.Delete(id))
+                                .Verifiable();
+
+            // Act
+            var result = await _controller.DeleteConfirmed(id) as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<RedirectToActionResult>(result);
+        }
     }
 }
