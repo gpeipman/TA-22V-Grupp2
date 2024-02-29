@@ -11,3 +11,4 @@ rm -r $UNIT_TEST_DIR/$coverage_id
 reportgenerator "-reports:$UNIT_TEST_DIR/coverage.cobertura.xml" "-targetdir:$HTML_OUTPUT_DIR" "-reporttype:Html" "-classfilters:-AspNetCoreGeneratedDocument.*"
 open $HTML_OUTPUT_DIR/index.html
 
+
