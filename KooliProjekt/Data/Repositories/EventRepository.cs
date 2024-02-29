@@ -67,5 +67,17 @@ namespace KooliProjekt.Data.Repositories
         {
             return Context.Events.Any(e => e.Id == id);
         }
+        public async Task<IEnumerable<LookupItem>> Lookup()
+        {
+            var result = await Context.Events
+                                       .OrderBy(@event => @event.event_name)
+                                       .Select(@event => new LookupItem 
+                                       { 
+                                           Id = @event.Id,
+                                           Title = @event.event_name
+                                       })
+                                       .ToListAsync();
+            return result;
+        }
     }
 }

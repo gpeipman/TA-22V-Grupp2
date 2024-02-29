@@ -95,7 +95,7 @@ namespace KooliProjekt.Controllers
             {
                 return NotFound();
             }
-            ViewData["user_Id"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id", @event.user_Id);
+            ViewData["user_Id"] = new SelectList(await _eventService.Lookup(), "Id", "Id", @event.user_Id);
             return View(@event);
         }
 
@@ -133,7 +133,8 @@ namespace KooliProjekt.Controllers
                 return RedirectToAction(nameof(Index));
             }
             await _eventService.Save(@event);
-            ViewData["user_Id"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id", @event.user_Id);
+            await FillTodoLists(@event.Id);
+
             return View(@event);
         }
 
@@ -162,6 +163,14 @@ namespace KooliProjekt.Controllers
         {
             await _eventService.Delete(id);
             return RedirectToAction(nameof(Index));
+        }
+        [NonAction]
+        private async Task FillTodoLists(int? eventId)
+        {
+            var items = await _eventService.Lookup();
+            var selectList = new SelectList(items, "Id", "Id", eventId);           
+
+            ViewData["TodoListId"] = selectList;
         }
     }
 }

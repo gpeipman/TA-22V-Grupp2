@@ -73,6 +73,11 @@ namespace KooliProjekt.Services
             return _EventRepository.EventExists(id);
         }
 
+        public async Task<IEnumerable<LookupItem>> Lookup()
+        {
+           return await _EventRepository.Lookup();
+        }
+
 
     }
 }

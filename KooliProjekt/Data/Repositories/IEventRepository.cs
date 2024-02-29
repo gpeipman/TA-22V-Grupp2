@@ -8,5 +8,6 @@ namespace KooliProjekt.Data.Repositories
         Task Delete(int id);
         Task Entry(Event @event);
         bool EventExists(int id);
+        Task<IEnumerable<LookupItem>> Lookup();
     }
 }
