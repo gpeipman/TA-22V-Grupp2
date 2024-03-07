@@ -15,6 +15,8 @@ using System.Security.Principal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 
 namespace KooliProjekt.UnitTests.ControllerTests
@@ -73,8 +75,8 @@ namespace KooliProjekt.UnitTests.ControllerTests
         {
             // Arrange
             var id = 4;
-            Event_details event_details = null;
-            _Event_detailsService.Setup(srv => srv.GetById(id))
+            Event event_details = null;
+            _eventService.Setup(srv => srv.GetById(id))
                                 .ReturnsAsync(event_details);
 
             // Act
@@ -176,6 +178,170 @@ namespace KooliProjekt.UnitTests.ControllerTests
             // Assert
             Assert.NotNull(result);
             Assert.IsType<RedirectToActionResult>(result);
+        }
+        // [Fact]
+        // public async Task Create_should_return_view()
+        // {
+        //     // Arrange
+        //     _controller.FillTodoLists();
+        //     // Act
+        //     var result = _controller.Create() as ViewResult;
+
+        //     // Assert
+        //     Assert.NotNull(result);
+        //     Assert.IsType<ViewResult>(result);
+        //     // Assert.True(string.IsNullOrEmpty(result.ViewName) ||
+        //     //  result.ViewName == "Create");
+        // }
+        [Fact]
+        public async Task Create_redirects_to_action_if_model_is_valid()
+        {
+            // Arrange
+            Event @event = new Event();
+            _eventService.Setup(srv => srv.Save(@event));
+
+
+            // Act
+            var result = await _controller.Create(@event) as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<RedirectToActionResult>(result);
+        }
+        [Fact]
+        public async Task Create_creates_list_and_returns_view_if_model_is_invalid()
+        {
+            // Arrange
+            Event @event = new();
+            _controller.ModelState.AddModelError("abc", "abc");
+            // Act
+            var result = await _controller.Create(@event) as ViewResult;
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<ViewResult>(result);
+        }
+        [Fact]
+        public async Task Edit_returns_not_found_if_id_is_null()
+        {
+            // Arrange
+            Event @event = new();
+            // Act
+            var result = await _controller.Edit(null) as NotFoundResult;
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<NotFoundResult>(result);
+        }
+        [Fact]
+        public async Task Edit_returns_not_found_if_id_is_not_null_but_event_is_null()
+        {
+            // Arrange
+            int id = 1;
+            Event @event = new Event();
+            _eventService.Setup(srv => srv.GetById(@event.Id)).ReturnsAsync(@event);
+            // Act
+            var result = await _controller.Edit(id) as NotFoundResult;
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<NotFoundResult>(result);
+        }
+        [Fact]
+        public async Task Edit_returns_view_if_id_is_not_null_and_event_is_null()
+        {
+            // Arrange
+            int id = 1;
+            Event @event = new Event { Id = id };
+            _eventService.Setup(srv => srv.GetById(@event.Id)).ReturnsAsync(@event);
+            // Act
+            var result = await _controller.Edit(id) as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<ViewResult>(result);
+        }
+        [Fact]
+        public async Task Edit_returns_not_found_if_id_is_not_equal_to_event_id()
+        {
+            // Arrange
+            int id = 1;
+            Event @event = new Event { Id = 2 };
+            // Act
+            var result = await _controller.Edit(id, @event) as NotFoundResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<NotFoundResult>(result);
+        }
+        [Fact]
+        public async Task Edit_redirects_to_action_if_ModelState_is_valid()
+        {
+            // Arrange
+            int id = 1;
+            Event @event = new Event { Id = id };
+            _eventService.Setup(srv => srv.Save(@event)).Verifiable();
+
+
+            // Act
+            var result = await _controller.Edit(id, @event) as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<RedirectToActionResult>(result);
+        }
+        [Fact]
+        public async Task Edit_catches_exeption()
+        {
+            // Arrange
+            int id = 1;
+            Event @event = new Event { Id = id };
+            bool check = false;
+            _eventService.Setup(srv => srv.Save(@event)).Throws(new DbUpdateConcurrencyException());
+            _eventService.Setup(srv => srv.EventExists(@event.Id)).Returns(true);
+            // Act
+            try
+            {
+                await _controller.Edit(id, @event);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                check = true;
+            }
+            // Assert
+            Assert.True(check);
+        }
+        [Fact]
+        public async Task Edit_does_not_catch_an_exeption()
+        {
+            // Arrange
+            int id = 1;
+            Event @event = new Event { Id = id };
+            bool check = false;
+            _eventService.Setup(srv => srv.Save(@event)).Throws(new DbUpdateConcurrencyException());
+            _eventService.Setup(srv => srv.EventExists(@event.Id)).Returns(false);
+            // Act
+            try
+            {
+                await _controller.Edit(id, @event);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                check = true;
+            }
+            // Assert
+            Assert.False(check);
+        }
+        [Fact]
+        public async Task Edit_returns_view_to_action_if_model_is_invalid()
+        {
+            // Arrange
+            int id = 1;
+            Event @event = new Event { Id = id };
+            _controller.ModelState.AddModelError("abc", "abc");
+            _eventService.Setup(srv => srv.Save(@event)).Verifiable();
+            // Act
+            var result = await _controller.Edit(id, @event) as ViewResult;
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<ViewResult>(result);
         }
     }
 }
