@@ -7,7 +7,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using KooliProjekt.Data;
+using KooliProjekt.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using KooliProjekt.Data.Repositories;
 namespace KooliProjekt.IntegrationTests.Helpers
 {
     public class FakeStartup //: Startup
@@ -35,6 +40,13 @@ namespace KooliProjekt.IntegrationTests.Helpers
                     .AddApplicationPart(typeof(HomeController).Assembly);
 
             //services.AddScoped<IFileClient, LocalFileClient>();
+            services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<IEventService, EventService>();
+            services.AddScoped<IReceiptRepository, ReceiptRepository>();
+            services.AddScoped<IReceiptService, ReceiptService>();
+            services.AddScoped<IEvent_DetailsRepository, Event_detailsRepository>();
+            services.AddScoped<IEvent_detailsService, Event_detailsService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

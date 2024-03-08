@@ -38,5 +38,6 @@ namespace KooliProjekt.IntegrationTests
             Assert.Equal("text/html; charset=utf-8", response.Content.Headers.ContentType.ToString());
 
         }
-     }
+
+    }
 }
