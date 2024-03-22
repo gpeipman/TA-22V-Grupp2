@@ -18,6 +18,7 @@ namespace KooliProjekt.Controllers
 
         public IActionResult Index()
         {
+            System.IO.File.WriteAllText("c:\\temp\\blah.txt", DateTime.Now + ": " + HttpContext.User.Identity.Name);
             return View();
         }
 

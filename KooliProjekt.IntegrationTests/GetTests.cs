@@ -31,13 +31,15 @@ namespace KooliProjekt.IntegrationTests
         [InlineData("/Event/Details/")]
         [InlineData("/Event/Edit/")]
         [InlineData("/Event/Delete/")]
-        public async Task Get_returns_OK_when_list_was_found(string url)
+        public async Task Get_returns_OK_when_event_was_found(string url)
         {
             // Arrange
+            AuthenticateUser();
             var client = Factory.CreateClient();
             var @event = new Event { event_name = "TEST" };
-            await DbContext.AddAsync(@event);
-            await DbContext.SaveChangesAsync();
+            var context = GetDbContext();
+            await context.AddAsync(@event);
+            await context.SaveChangesAsync();
 
             Console.WriteLine("Event id: " + @event.Id);
             // Act

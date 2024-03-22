@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using KooliProjekt.Data.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 namespace KooliProjekt.IntegrationTests.Helpers
 {
     public class FakeStartup //: Startup
@@ -34,6 +36,15 @@ namespace KooliProjekt.IntegrationTests.Helpers
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+                        options =>
+                        {
+                            options.LoginPath = new PathString("/auth/login");
+                            options.AccessDeniedPath = new PathString("/auth/denied");
+                        });
+            services.AddAuthorization();
 
             //services.AddAutoMapper(GetType().Assembly);
             services.AddControllersWithViews()
@@ -77,20 +88,7 @@ namespace KooliProjekt.IntegrationTests.Helpers
                 {
                     throw new Exception("LIVE SETTINGS IN TESTS!");
                 }
-
-                //EnsureDatabase(dbContext);
             }
         }
-
-        //private void EnsureDatabase(ApplicationDbContext dbContext)
-        //{
-        //    dbContext.Database.EnsureDeleted();
-        //    dbContext.Database.EnsureCreated();
-
-        //    if (!dbContext.Degustation.Any() || !dbContext.Batch.Any() || !dbContext.BatchIngredient.Any() || !dbContext.Batchlog.Any() || !dbContext.Batch.Any() || !dbContext.User.Any())
-        //    {
-        //        SeedData.Initialize(dbContext);
-        //    }
-        //}
     }
 }

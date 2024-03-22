@@ -76,6 +76,8 @@ namespace KooliProjekt
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                 SeedData.Generate(dbContext, userManager, roleManager);
+
+                
             }
 #endif
 
