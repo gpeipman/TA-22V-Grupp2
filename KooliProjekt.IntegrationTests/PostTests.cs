@@ -32,7 +32,7 @@ namespace KooliProjekt.IntegrationTests
                 { "user_Id", "1" },
                 { "MaxParticipants", "250" },
                 { "event_price", "10" },
-                { "Id", $"{id}" }
+                //{ "Id", $"{id}" }
             };
 
 
@@ -58,9 +58,7 @@ namespace KooliProjekt.IntegrationTests
             });
 
             var formValues = new Dictionary<string, string>();
-
-
-
+            formValues.Add("event_date_start", "qweqweqweqwe");
             var content = new FormUrlEncodedContent(formValues);
 
             // Act
