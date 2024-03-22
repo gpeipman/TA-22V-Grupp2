@@ -34,7 +34,7 @@ namespace KooliProjekt.IntegrationTests
         public async Task Get_returns_OK_when_event_was_found(string url)
         {
             // Arrange
-            AuthenticateUser();
+            AuthenticateAdmin();
             var client = Factory.CreateClient();
             var @event = new Event { event_name = "TEST" };
             var context = GetDbContext();
