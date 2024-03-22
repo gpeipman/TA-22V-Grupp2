@@ -10,7 +10,6 @@ namespace KooliProjekt.IntegrationTests.Helpers
     public abstract class TestBase : IDisposable
     {
         public WebApplicationFactory<FakeStartup> Factory { get; private set; }
-        public ApplicationDbContext DbContext { get; private set; }
 
         public TestBase()
         {
