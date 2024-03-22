@@ -7,10 +7,21 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="BuildReports\Coverage\**" />
+    <EmbeddedResource Remove="BuildReports\Coverage\**" />
+    <None Remove="BuildReports\Coverage\**" />
+  </ItemGroup>
+
+
   <ItemGroup>
     <None Include="appsettings.json" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+
+	<PackageReference Include="Microsoft.CodeCoverage" Version="17.9.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.27" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.16" />
@@ -20,10 +31,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="6.0.1">
+    <PackageReference Include="coverlet.collector" Version="3.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="XunitXml.TestLogger" Version="2.1.26" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KooliProjekt\KooliProjekt.csproj" />
