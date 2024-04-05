@@ -46,6 +46,19 @@ namespace KooliProjekt.Controllers
             return @event;
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Event>> GetAllEvents(int id)
+        {
+            var @event = await _eventService.(id);
+
+            if (@event == null)
+            {
+                return NotFound();
+            }
+
+            return @event;
+        }
+
         // PUT: api/EventAPI/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
