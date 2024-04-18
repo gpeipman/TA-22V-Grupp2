@@ -64,7 +64,7 @@ namespace KooliProjekt.Services
         public async Task Entry(Event @event)
         {
             await _EventRepository.Entry(@event);
-            
+
         }
 
 
@@ -75,7 +75,11 @@ namespace KooliProjekt.Services
 
         public async Task<IEnumerable<LookupItem>> Lookup()
         {
-           return await _EventRepository.Lookup();
+            return await _EventRepository.Lookup();
+        }
+        public List<Event> GetAllEvents()
+        {
+            return GetAllEvents();
         }
 
 

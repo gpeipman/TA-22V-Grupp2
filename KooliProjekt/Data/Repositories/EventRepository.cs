@@ -24,7 +24,7 @@ namespace KooliProjekt.Data.Repositories
         }
 
 
-        public virtual async Task<List<Event>> GetAll()
+        public virtual List<Event> GetAll()
         {
             List<Event> allevents = new List<Event>();
             foreach (Event element in Context.Events)

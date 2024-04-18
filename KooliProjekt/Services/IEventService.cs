@@ -11,5 +11,6 @@ namespace KooliProjekt.Services
         Task Entry(Event @event);
         bool EventExists(int id);
         Task<IEnumerable<LookupItem>> Lookup();
+        List<Event> GetAllEvents();
     }
 }
