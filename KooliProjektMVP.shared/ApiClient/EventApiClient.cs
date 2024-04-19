@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KooliProjektMVP.shared.ApiClient
+﻿namespace KooliProjektMVP.shared.ApiClient
 {
-    internal class EventApiClient : IEventApiClient, IDisposable
+    public class EventApiClient : IEventApiClient, IDisposable
     {
-        private static HttpClient _httpClient = new HttpClient { BaseAddress = new Uri("https://localhost:7038/api/") };
+        private static HttpClient _httpClient = new HttpClient { BaseAddress = new Uri("https://localhost:7136/api/EventAPI/") };
 
         public IList<EventModel> List()
         {

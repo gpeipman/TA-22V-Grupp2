@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KooliProjekt.UnitTests", "K
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KooliProjekt.IntegrationTests", "KooliProjekt.IntegrationTests\KooliProjekt.IntegrationTests.csproj", "{B28CE897-BD44-469A-A1DA-C89A0BAAB43A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KooliProjeks.WindowsApp", "KooliProjeks.WindowsApp\KooliProjeks.WindowsApp.csproj", "{2B6CE94D-D8D9-4F20-8BC9-D58A7F8A2EC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KooliProjektMVP", "KooliProjeks.WindowsApp\KooliProjektMVP.csproj", "{831CB892-E48C-4725-968A-5911E5BC9D6F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KooliProjektMVP.shared", "KooliProjektMVP.shared\KooliProjektMVP.shared.csproj", "{D47F92B0-4F34-462D-B1AC-974DE3545D3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +31,14 @@ Global
 		{B28CE897-BD44-469A-A1DA-C89A0BAAB43A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B28CE897-BD44-469A-A1DA-C89A0BAAB43A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B28CE897-BD44-469A-A1DA-C89A0BAAB43A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B6CE94D-D8D9-4F20-8BC9-D58A7F8A2EC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B6CE94D-D8D9-4F20-8BC9-D58A7F8A2EC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B6CE94D-D8D9-4F20-8BC9-D58A7F8A2EC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B6CE94D-D8D9-4F20-8BC9-D58A7F8A2EC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{831CB892-E48C-4725-968A-5911E5BC9D6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{831CB892-E48C-4725-968A-5911E5BC9D6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{831CB892-E48C-4725-968A-5911E5BC9D6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{831CB892-E48C-4725-968A-5911E5BC9D6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D47F92B0-4F34-462D-B1AC-974DE3545D3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D47F92B0-4F34-462D-B1AC-974DE3545D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D47F92B0-4F34-462D-B1AC-974DE3545D3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D47F92B0-4F34-462D-B1AC-974DE3545D3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

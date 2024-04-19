@@ -4,6 +4,7 @@ using System.Diagnostics;
 using KooliProjekt.Services;
 using KooliProjekt.Data;
 using NuGet.Protocol;
+using Microsoft.Extensions.Logging;
 
 namespace KooliProjekt.Controllers
 {

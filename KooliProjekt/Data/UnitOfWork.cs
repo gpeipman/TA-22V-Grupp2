@@ -1,7 +1,6 @@
 using KooliProjekt.Data.Repositories;
 using KooliProjekt.Data;
-
-
+using System.Threading.Tasks;
 
 namespace KooliProjekt.Data
 {

@@ -1,7 +1,9 @@
 using KooliProjekt.Data;
 using Microsoft.EntityFrameworkCore;
 using KooliProjekt.Data.Repositories;
-
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System;
 
 namespace KooliProjekt.Services
 {

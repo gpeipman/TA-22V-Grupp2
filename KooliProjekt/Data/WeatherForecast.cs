@@ -1,3 +1,5 @@
+using System;
+
 namespace KooliProjekt.Data
 {
     public class WeatherForecast

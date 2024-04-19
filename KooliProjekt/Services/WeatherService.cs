@@ -3,6 +3,8 @@ using KooliProjekt.Data;
 using KooliProjekt.Data.Repositories;
 using KooliProjekt.Services;
 using System.Net.Http.Json;
+using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace KooliProjekt.Services
 {

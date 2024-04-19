@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KooliProjektMVP.shared.ApiClient
 {
-    internal interface IEventApiClient : IDisposable
+    public interface IEventApiClient : IDisposable
     {
         IList<EventModel> List();
         Task<IList<EventModel>> ListAsync();

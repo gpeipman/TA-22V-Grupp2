@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace KooliProjekt.Data.Repositories
 {
     public interface IReceiptRepository

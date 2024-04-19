@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 using static System.Formats.Asn1.AsnWriter;
  
 namespace KooliProjekt.Data
