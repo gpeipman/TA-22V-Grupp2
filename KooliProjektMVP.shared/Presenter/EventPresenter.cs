@@ -14,6 +14,7 @@ namespace KooliProjektMVP.shared.Presenter
         private readonly IEventApiClient _apiClient;
 
         private EventModel _selectedItem;
+        private IEventView view;
 
         public EventPresenter(IEventView view, IEventApiClient apiClient)
         {
@@ -23,6 +24,11 @@ namespace KooliProjektMVP.shared.Presenter
             _apiClient = apiClient;
 
             LoadLists();
+        }
+
+        public EventPresenter(IEventView view)
+        {
+            this.view = view;
         }
 
         private void LoadLists()

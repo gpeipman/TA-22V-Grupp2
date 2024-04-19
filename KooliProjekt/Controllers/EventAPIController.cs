@@ -26,11 +26,11 @@ namespace KooliProjekt.Controllers
         }
 
         // GET: api/EventAPI
-        /*[HttpGet]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Event>>> GetEvents()
         {
-            return await _eventService.GetAllEvents();
-        }*/
+            return _eventService.GetAllEvents();
+        }
 
         // GET: api/EventAPI/5
         [HttpGet("{id}")]

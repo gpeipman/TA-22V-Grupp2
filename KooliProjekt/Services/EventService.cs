@@ -81,7 +81,7 @@ namespace KooliProjekt.Services
         }
         public List<Event> GetAllEvents()
         {
-            return GetAllEvents();
+            return _EventRepository.GetAll();
         }
 
 

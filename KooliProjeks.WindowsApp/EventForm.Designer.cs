@@ -1,4 +1,7 @@
-﻿namespace KooliProjeks.WindowsApp
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace KooliProjeks.WindowsApp
 {
     partial class EventForm
     {

@@ -1,4 +1,6 @@
-﻿namespace KooliProjektMVP.shared.ApiClient
+﻿using System;
+
+namespace KooliProjektMVP.shared.ApiClient
 {
     public class EventModel
     {

@@ -1,8 +1,14 @@
-﻿namespace KooliProjektMVP.shared.ApiClient
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+
+namespace KooliProjektMVP.shared.ApiClient
 {
     public class EventApiClient : IEventApiClient, IDisposable
     {
-        private static HttpClient _httpClient = new HttpClient { BaseAddress = new Uri("https://localhost:7136/api/EventAPI/") };
+        private static HttpClient _httpClient = new HttpClient { BaseAddress = new Uri("https://localhost:7136/api/") };
 
         public IList<EventModel> List()
         {
@@ -14,7 +20,7 @@
 
         public async Task<IList<EventModel>> ListAsync()
         {
-            return await _httpClient.GetFromJsonAsync<List<EventModel>>("lists");
+            return await _httpClient.GetFromJsonAsync<List<EventModel>>("EventAPI");
         }
 
         public EventModel Get(int id)
@@ -27,7 +33,7 @@
 
         public async Task<EventModel> GetAsync(int id)
         {
-            return await _httpClient.GetFromJsonAsync<EventModel>("lists/" + id);
+            return await _httpClient.GetFromJsonAsync<EventModel>("EventAPI/" + id);
         }
 
         public void Save(EventModel list)
@@ -58,7 +64,7 @@
 
         public async Task DeleteAsync(int id)
         {
-            await _httpClient.DeleteAsync("lists/" + id);
+            await _httpClient.DeleteAsync("EventAPI/" + id);
         }
 
         public void Dispose()

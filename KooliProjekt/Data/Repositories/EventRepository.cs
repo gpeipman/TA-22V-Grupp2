@@ -19,6 +19,8 @@ namespace KooliProjekt.Data.Repositories
             return result;
         }
 
+       
+
         public virtual async Task<Event> GetById(int id)
         {
             var result = await Context.Events.FindAsync(id);
