@@ -13,24 +13,27 @@ namespace KooliProjeks.WindowsApp
         private readonly IEventApiClient _apiClient;
         public IList<EventModel> Lists 
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get { return (IList<EventModel>)listBox1.DataSource; }
+            set { listBox1.DataSource = value; }
         }
-        public int SelectedEventId { get; set; }
-        public string SelectedItemName { get; set; }
+        public int SelectedEventId
+        {
+            get { return int.Parse(textBox1.Text); }
+            set { textBox1.Text = value.ToString(); }
+        }
+public string SelectedItemName { get; set; }
         public DateTime Selected_event_date_start { get; set; }
         public DateTime Selected_event_date_end { get; set; }
         public string Selected_event_description { get; set; }
         public string Selected_user_Id { get; set; }
         public int Selected_MaxParticipants { get; set; }
         public int? Selected_event_price { get; set; }
-        EventPresenter IEventView.Presenter { set => _view.Presenter = value; }
+        public EventPresenter Presenter { set => _presenter = value; }
 
-        public EventPresenter Presenter;
+        private EventPresenter _presenter;
 
         public EventForm()
         {
-            Presenter = new EventPresenter(_view, _apiClient);
             InitializeComponent();
         }
 

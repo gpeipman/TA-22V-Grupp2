@@ -83,7 +83,7 @@ namespace KooliProjekt.IntegrationTests
             var context = GetDbContext();
             await context.AddAsync(@event);
             await context.SaveChangesAsync();
-
+            
             var formValues = new Dictionary<string, string>
             {
                 { "user_Id", user.Id },

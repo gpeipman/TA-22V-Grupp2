@@ -23,7 +23,7 @@ namespace KooliProjektMVP.shared.Presenter
 
             _apiClient = apiClient;
 
-            LoadLists();
+            LoadLists(); 
         }
 
         public EventPresenter(IEventView view)
