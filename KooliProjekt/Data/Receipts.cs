@@ -8,9 +8,10 @@ namespace KooliProjekt.Data
     {
         public int Id { get; set; }
         public string user_Id { get; set; }
-        public IdentityUser user_ { get; set; }
+        public IdentityUser user { get; set; }
         public int event_Id { get; set; }
-        public Event event_ { get; set; }
+
+        public Event @event { get; set; }
 
     }
 }

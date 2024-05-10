@@ -44,7 +44,7 @@ namespace KooliProjektMVP.shared.ApiClient
 
         public async Task SaveAsync(EventModel list)
         {
-            var url = "lists/";
+            var url = "EventAPI/";
 
             if (list.Id == 0)
             {
@@ -52,7 +52,7 @@ namespace KooliProjektMVP.shared.ApiClient
             }
             else
             {
-                await _httpClient.PutAsJsonAsync(url + list.Id, list);
+                using var response = await _httpClient.PutAsJsonAsync(url + list.Id, list);
             }
         }
 

@@ -27,16 +27,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.event_.Id)
+                @Html.DisplayFor(modelItem => item.@event.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.event_.event_name)
+                @Html.DisplayFor(modelItem => item.@event.event_name)
             </td>
             <td>
                 @{
-                    if(item.event_.event_price > 0)
+                    if(item.@event.event_price > 0)
                     {
-                        @Html.DisplayFor(modelItem => item.event_.event_price)
+                        @Html.DisplayFor(modelItem => item.@event.event_price)
                     }
                     else
                     {
@@ -47,7 +47,7 @@
             <td>
                 
                 @{
-                    if(!item.is_payed & item.event_.event_price > 0){
+                    if(!item.is_payed & item.@event.event_price > 0){
                         <a asp-controller="Receipt" asp-action="Pay" asp-route-id="@item.Id" asp-route-user="@item.user_Id"><button class="btn">Pay</button></a>
                         <a asp-action="Delete" asp-route-id="@item.Id"><button class="btn">Cancel registration</button></a>
                     }

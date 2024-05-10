@@ -20,7 +20,7 @@ namespace KooliProjekt.Data
         public string event_description { get; set; } // Events program
         [Display(Name = "Event's organiser")]
         public string user_Id { get; set; }
-        public IdentityUser user_ { get; set; }
+        public IdentityUser user { get; set; }
         [Display(Name = "Event's maximum participants")]
         public int MaxParticipants { get; set; }
         [Display(Name = "Event's price")]

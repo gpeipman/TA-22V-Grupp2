@@ -16,8 +16,8 @@ namespace KooliProjekt.Data.Repositories
         public virtual async Task<PagedResult<Event_details>> List(int page, int pageSize)
         {
             var result = await Context.Event_Details
-                .Include(o => o.user_)
-                .Include(o => o.event_)
+                .Include(o => o.user)
+                .Include(o => o.@event)
                 .GetPagedAsync(page, pageSize);
 
             return result;
@@ -26,9 +26,9 @@ namespace KooliProjekt.Data.Repositories
         public virtual async Task<List<Event_details>> GetEvent_details(string loggedInUsername)
         {
             var result = await Context.Event_Details
-                .Where(o => o.user_.Email == loggedInUsername)
-                .Include(o => o.user_)
-                .Include(o => o.event_)
+                .Where(o => o.user.Email == loggedInUsername)
+                .Include(o => o.user)
+                .Include(o => o.@event)
                 .ToListAsync();
 
             return result;

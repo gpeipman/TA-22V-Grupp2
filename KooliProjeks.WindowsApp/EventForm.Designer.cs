@@ -36,25 +36,26 @@ namespace KooliProjeks.WindowsApp
             menuStrip2 = new MenuStrip();
             listBox1 = new ListBox();
             tableLayoutPanel1 = new TableLayoutPanel();
-            contextMenuStrip1 = new ContextMenuStrip(components);
+            textBox8 = new TextBox();
+            textBox7 = new TextBox();
+            textBox6 = new TextBox();
+            textBox5 = new TextBox();
+            textBox4 = new TextBox();
+            textBox3 = new TextBox();
+            textBox2 = new TextBox();
+            richTextBox2 = new RichTextBox();
             textBox1 = new TextBox();
+            richTextBox1 = new RichTextBox();
+            richTextBox3 = new RichTextBox();
+            richTextBox5 = new RichTextBox();
+            richTextBox7 = new RichTextBox();
+            richTextBox4 = new RichTextBox();
+            richTextBox6 = new RichTextBox();
+            richTextBox8 = new RichTextBox();
+            contextMenuStrip1 = new ContextMenuStrip(components);
             button1 = new Button();
             contextMenuStrip2 = new ContextMenuStrip(components);
-            richTextBox1 = new RichTextBox();
-            richTextBox2 = new RichTextBox();
-            richTextBox3 = new RichTextBox();
-            richTextBox4 = new RichTextBox();
-            richTextBox5 = new RichTextBox();
-            richTextBox6 = new RichTextBox();
-            richTextBox7 = new RichTextBox();
-            richTextBox8 = new RichTextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
-            textBox5 = new TextBox();
-            textBox6 = new TextBox();
-            textBox7 = new TextBox();
-            textBox8 = new TextBox();
+            button2 = new Button();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -76,6 +77,7 @@ namespace KooliProjeks.WindowsApp
             // 
             // listBox1
             // 
+            listBox1.DisplayMember = "event_name";
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 15;
             listBox1.Location = new Point(27, 27);
@@ -120,10 +122,63 @@ namespace KooliProjeks.WindowsApp
             tableLayoutPanel1.TabIndex = 6;
             tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
             // 
-            // contextMenuStrip1
+            // textBox8
             // 
-            contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(61, 4);
+            textBox8.Location = new Point(190, 349);
+            textBox8.Name = "textBox8";
+            textBox8.Size = new Size(100, 23);
+            textBox8.TabIndex = 22;
+            // 
+            // textBox7
+            // 
+            textBox7.Location = new Point(190, 318);
+            textBox7.Name = "textBox7";
+            textBox7.Size = new Size(100, 23);
+            textBox7.TabIndex = 21;
+            // 
+            // textBox6
+            // 
+            textBox6.Location = new Point(190, 275);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(100, 23);
+            textBox6.TabIndex = 20;
+            // 
+            // textBox5
+            // 
+            textBox5.Location = new Point(190, 220);
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(100, 23);
+            textBox5.TabIndex = 19;
+            // 
+            // textBox4
+            // 
+            textBox4.Location = new Point(190, 163);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(100, 23);
+            textBox4.TabIndex = 18;
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(190, 107);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(100, 23);
+            textBox3.TabIndex = 17;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(190, 52);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(100, 23);
+            textBox2.TabIndex = 16;
+            // 
+            // richTextBox2
+            // 
+            richTextBox2.BackColor = Color.WhiteSmoke;
+            richTextBox2.Location = new Point(3, 52);
+            richTextBox2.Name = "richTextBox2";
+            richTextBox2.Size = new Size(100, 43);
+            richTextBox2.TabIndex = 10;
+            richTextBox2.Text = "Event Name";
             // 
             // textBox1
             // 
@@ -132,20 +187,6 @@ namespace KooliProjeks.WindowsApp
             textBox1.Size = new Size(100, 23);
             textBox1.TabIndex = 8;
             textBox1.TextChanged += textBox1_TextChanged_1;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(702, 415);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 8;
-            button1.Text = "Edit";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // contextMenuStrip2
-            // 
-            contextMenuStrip2.Name = "contextMenuStrip2";
-            contextMenuStrip2.Size = new Size(61, 4);
             // 
             // richTextBox1
             // 
@@ -157,15 +198,6 @@ namespace KooliProjeks.WindowsApp
             richTextBox1.Text = "Id";
             richTextBox1.TextChanged += richTextBox1_TextChanged;
             // 
-            // richTextBox2
-            // 
-            richTextBox2.BackColor = Color.WhiteSmoke;
-            richTextBox2.Location = new Point(3, 52);
-            richTextBox2.Name = "richTextBox2";
-            richTextBox2.Size = new Size(100, 43);
-            richTextBox2.TabIndex = 10;
-            richTextBox2.Text = "Event Name";
-            // 
             // richTextBox3
             // 
             richTextBox3.BackColor = Color.WhiteSmoke;
@@ -175,15 +207,6 @@ namespace KooliProjeks.WindowsApp
             richTextBox3.TabIndex = 11;
             richTextBox3.Text = "Event Date Start";
             // 
-            // richTextBox4
-            // 
-            richTextBox4.BackColor = Color.WhiteSmoke;
-            richTextBox4.Location = new Point(3, 275);
-            richTextBox4.Name = "richTextBox4";
-            richTextBox4.Size = new Size(100, 37);
-            richTextBox4.TabIndex = 12;
-            richTextBox4.Text = "User Id";
-            // 
             // richTextBox5
             // 
             richTextBox5.BackColor = Color.WhiteSmoke;
@@ -192,15 +215,7 @@ namespace KooliProjeks.WindowsApp
             richTextBox5.Size = new Size(100, 43);
             richTextBox5.TabIndex = 12;
             richTextBox5.Text = "Event Date End";
-            // 
-            // richTextBox6
-            // 
-            richTextBox6.BackColor = Color.WhiteSmoke;
-            richTextBox6.Location = new Point(3, 318);
-            richTextBox6.Name = "richTextBox6";
-            richTextBox6.Size = new Size(181, 25);
-            richTextBox6.TabIndex = 13;
-            richTextBox6.Text = "Maximum Participants";
+            richTextBox5.TextChanged += richTextBox5_TextChanged;
             // 
             // richTextBox7
             // 
@@ -211,6 +226,24 @@ namespace KooliProjeks.WindowsApp
             richTextBox7.TabIndex = 14;
             richTextBox7.Text = "Event Description";
             // 
+            // richTextBox4
+            // 
+            richTextBox4.BackColor = Color.WhiteSmoke;
+            richTextBox4.Location = new Point(3, 275);
+            richTextBox4.Name = "richTextBox4";
+            richTextBox4.Size = new Size(100, 37);
+            richTextBox4.TabIndex = 12;
+            richTextBox4.Text = "User Id";
+            // 
+            // richTextBox6
+            // 
+            richTextBox6.BackColor = Color.WhiteSmoke;
+            richTextBox6.Location = new Point(3, 318);
+            richTextBox6.Name = "richTextBox6";
+            richTextBox6.Size = new Size(181, 25);
+            richTextBox6.TabIndex = 13;
+            richTextBox6.Text = "Maximum Participants";
+            // 
             // richTextBox8
             // 
             richTextBox8.BackColor = Color.WhiteSmoke;
@@ -220,67 +253,49 @@ namespace KooliProjeks.WindowsApp
             richTextBox8.TabIndex = 15;
             richTextBox8.Text = "Event Price";
             // 
-            // textBox2
+            // contextMenuStrip1
             // 
-            textBox2.Location = new Point(190, 52);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(100, 23);
-            textBox2.TabIndex = 16;
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
             // 
-            // textBox3
+            // button1
             // 
-            textBox3.Location = new Point(190, 107);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(100, 23);
-            textBox3.TabIndex = 17;
+            button1.Location = new Point(702, 415);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 8;
+            button1.Text = "Save";
+            button1.UseVisualStyleBackColor = true;
+            
             // 
-            // textBox4
+            // contextMenuStrip2
             // 
-            textBox4.Location = new Point(190, 163);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(100, 23);
-            textBox4.TabIndex = 18;
+            contextMenuStrip2.Name = "contextMenuStrip2";
+            contextMenuStrip2.Size = new Size(61, 4);
             // 
-            // textBox5
+            // button2
             // 
-            textBox5.Location = new Point(190, 220);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(100, 23);
-            textBox5.TabIndex = 19;
+            button2.Location = new Point(621, 415);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 9;
+            button2.Text = "Delete";
+            button2.UseVisualStyleBackColor = true;
+            
             // 
-            // textBox6
-            // 
-            textBox6.Location = new Point(190, 275);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(100, 23);
-            textBox6.TabIndex = 20;
-            // 
-            // textBox7
-            // 
-            textBox7.Location = new Point(190, 318);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(100, 23);
-            textBox7.TabIndex = 21;
-            // 
-            // textBox8
-            // 
-            textBox8.Location = new Point(190, 349);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(100, 23);
-            textBox8.TabIndex = 22;
-            // 
-            // Form1
+            // EventForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(789, 450);
+            Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(listBox1);
             Controls.Add(menuStrip1);
             Controls.Add(menuStrip2);
             MainMenuStrip = menuStrip1;
-            Name = "Form1";
+            Name = "EventForm";
             Text = "Form1";
             Load += Form1_Load;
             Click += Form1_Load;
@@ -315,5 +330,6 @@ namespace KooliProjeks.WindowsApp
         private TextBox textBox4;
         private TextBox textBox3;
         private TextBox textBox2;
+        private Button button2;
     }
 }

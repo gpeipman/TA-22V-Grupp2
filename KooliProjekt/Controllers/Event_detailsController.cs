@@ -33,8 +33,8 @@ namespace KooliProjekt.Controllers
         public async Task<IActionResult> Register(int? id)
         {
             Event_details newRegistratedUser = new Event_details();
-            newRegistratedUser.user_ = _context.Users.FirstOrDefault(o => o.Email == User.Identity.Name);
-            newRegistratedUser.user_Id = newRegistratedUser.user_.Id;
+            newRegistratedUser.user = _context.Users.FirstOrDefault(o => o.Email == User.Identity.Name);
+            newRegistratedUser.user_Id = newRegistratedUser.user.Id;
             newRegistratedUser.event_Id = id.Value;
             newRegistratedUser.is_payed = false;
             await _Event_detailsService.Save(newRegistratedUser);

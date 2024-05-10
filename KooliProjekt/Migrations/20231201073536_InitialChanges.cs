@@ -10,11 +10,11 @@ namespace KooliProjekt.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "user_Id",
-                table: "Receipts",
-                type: "TEXT",
-                nullable: true);
+            //migrationBuilder.AddColumn<string>(
+            //    name: "user_Id",
+            //    table: "Receipts",
+            //    type: "TEXT",
+            //    nullable: true);
 
             migrationBuilder.AddColumn<int>(
                 name: "event_Id",
@@ -23,10 +23,10 @@ namespace KooliProjekt.Migrations
                 nullable: false,
                 defaultValue: 0);
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Receipts_user_Id",
-                table: "Receipts",
-                column: "user_Id");
+            //migrationBuilder.CreateIndex(
+            //    name: "IX_Receipts_user_Id",
+            //    table: "Receipts",
+            //    column: "user_Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Event_Details_event_Id",

@@ -13,8 +13,8 @@ namespace KooliProjekt.Data.Repositories
         public virtual async Task<PagedResult<Receipts>> List(int page, int pageSize)
         {
             var result = await Context.Receipts
-            .Include(o => o.user_)
-            .Include(o => o.event_)
+            .Include(o => o.user)
+            .Include(o => o.@event)
             .GetPagedAsync(page, pageSize);
 
             return result;

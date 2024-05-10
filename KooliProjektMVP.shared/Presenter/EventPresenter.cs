@@ -14,7 +14,6 @@ namespace KooliProjektMVP.shared.Presenter
         private readonly IEventApiClient _apiClient;
 
         private EventModel _selectedItem;
-        private IEventView view;
 
         public EventPresenter(IEventView view, IEventApiClient apiClient)
         {
@@ -28,7 +27,7 @@ namespace KooliProjektMVP.shared.Presenter
 
         public EventPresenter(IEventView view)
         {
-            this.view = view;
+            _view = view;
         }
 
         private void LoadLists()
@@ -73,6 +72,12 @@ namespace KooliProjektMVP.shared.Presenter
             }
 
             list.event_name = _view.SelectedItemName;
+            list.event_date_start = _selectedItem.event_date_start;
+            list.event_date_end = _selectedItem.event_date_end;
+            list.event_description = _selectedItem.event_description;
+            list.user_Id = _selectedItem.user_Id;
+            list.MaxParticipants = _selectedItem.MaxParticipants;
+            list.event_price = _selectedItem.event_price;
 
             _apiClient.Save(list);
 

@@ -78,9 +78,9 @@ namespace KooliProjekt.Controllers
 
 
             List<Receipts> receipts = _context.Receipts
-                .Where(o => o.user_.Email == loggedInUsername)
-                .Include(o => o.event_)
-                .Include(o => o.user_)
+                .Where(o => o.user.Email == loggedInUsername)
+                .Include(o => o.@event)
+                .Include(o => o.user)
                 .ToList();
 
             return View(receipts);
