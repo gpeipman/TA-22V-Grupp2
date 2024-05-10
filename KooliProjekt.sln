@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KooliProjektMVP", "KooliPro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KooliProjektMVP.shared", "KooliProjektMVP.shared\KooliProjektMVP.shared.csproj", "{D47F92B0-4F34-462D-B1AC-974DE3545D3E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KooliProjektMVP.Tests", "KooliProjektMVP.Tests\KooliProjektMVP.Tests.csproj", "{0FB0BEBA-C5BD-43D8-9E5E-FCB53ED61677}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{D47F92B0-4F34-462D-B1AC-974DE3545D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D47F92B0-4F34-462D-B1AC-974DE3545D3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D47F92B0-4F34-462D-B1AC-974DE3545D3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FB0BEBA-C5BD-43D8-9E5E-FCB53ED61677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FB0BEBA-C5BD-43D8-9E5E-FCB53ED61677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FB0BEBA-C5BD-43D8-9E5E-FCB53ED61677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FB0BEBA-C5BD-43D8-9E5E-FCB53ED61677}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
