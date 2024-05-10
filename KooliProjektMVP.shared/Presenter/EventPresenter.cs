@@ -64,7 +64,7 @@ namespace KooliProjektMVP.shared.Presenter
         }
 
         public void Save()
-        {
+        { 
             var list = _selectedItem;
             if (list == null)
             {
