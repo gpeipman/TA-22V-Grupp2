@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using KooliProjektMVVM.shared.ApiClient;
 using Moq;
 
-
 namespace KooliProjektMVVM.UnitTests
 {
     public class MainViewModelTests
@@ -16,7 +15,7 @@ namespace KooliProjektMVVM.UnitTests
 
         public MainViewModelTests()
         {
-            _apiClientMock = new Mock<IToDoApiClient>();
+            _apiClientMock = new Mock<IEventApiClient>();
             _viewModel = new MainWindowViewModel(_apiClientMock.Object);
         }
 
@@ -24,7 +23,7 @@ namespace KooliProjektMVVM.UnitTests
         public void ViewModel_loads_data_when_created()
         {
             // Arrange
-            IList<ToDoListModel> lists = new List<ToDoListModel>();
+            IList<EventModel> lists = new List<EventModel>();
             _apiClientMock.Setup(c => c.List())
                           .Returns(lists)
                           .Verifiable();
@@ -40,7 +39,7 @@ namespace KooliProjektMVVM.UnitTests
         public void SelectedItem_returns_correct_item()
         {
             // Arrange
-            var item = new ToDoListModel();
+            var item = new EventModel();
 
             // Act
             _viewModel.SelectedItem = item;
@@ -66,7 +65,7 @@ namespace KooliProjektMVVM.UnitTests
         public void DeleteCommand_is_enabled_when_item_is_selected()
         {
             // Arrange
-            var item = new ToDoListModel();
+            var item = new EventModel();
             var prm = new object();
 
             // Act
@@ -80,7 +79,7 @@ namespace KooliProjektMVVM.UnitTests
         public void DeleteCommand_deletes_selected_item_and_updates_list()
         {
             // Arrange
-            var item = new ToDoListModel { Id = 10 };
+            var item = new EventModel { Id = 10 };
             var prm = new object();
             _apiClientMock.Setup(c => c.Delete(item.Id)).Verifiable();
             _apiClientMock.Setup(c => c.List()).Verifiable();

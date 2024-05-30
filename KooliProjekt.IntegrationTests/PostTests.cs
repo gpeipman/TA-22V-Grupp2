@@ -116,7 +116,7 @@ namespace KooliProjekt.IntegrationTests
 
             var formValues = new Dictionary<string, string>
             {
-                { "user_Id", "123456789" }
+                { "user_Id", "012345678901234567890123456789" }
             };
             var content = new FormUrlEncodedContent(formValues);
 
